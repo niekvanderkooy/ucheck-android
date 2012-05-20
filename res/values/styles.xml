@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="uCheckTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:tabWidgetStyle">@style/uCheckTabWidget</item>
+    </style>
+
+    <style name="uCheckTabWidget" parent="@android:style/Widget.TabWidget">
+        <item name="android:textAppearance">@style/uCheckTabWidgetText</item>
+    </style>
+
+    <style name="uCheckTabWidgetText" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+</resources>
