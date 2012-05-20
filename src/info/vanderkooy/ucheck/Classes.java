@@ -9,8 +9,7 @@ public class Classes extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	
-	    // TODO Auto-generated method stub
+	    setContentView(R.layout.classes);
 	}
 
 }
