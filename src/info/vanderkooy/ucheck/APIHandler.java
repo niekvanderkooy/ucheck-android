@@ -12,4 +12,24 @@ public class APIHandler {
 		pref = PreferenceManager.getDefaultSharedPreferences(ctx);
 		safePref = new SafeSharedPrefs(ctx, pref);
 	}
+	
+	public boolean setUsername(String username) {
+		return false;
+	}
+	
+	public String getUsername() {
+		String username = "";
+		return username;		
+	}
+	
+	public boolean setPassword(String password) {
+		
+		return false;
+	}
+	
+	public String getPassword() {
+		String password = "";
+		return password;
+	}
+	
 }
