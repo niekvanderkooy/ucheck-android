@@ -12,6 +12,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -47,6 +49,34 @@ public class APIHandler {
 		String username = prefs.getUsername();
 		String key = prefs.getKey();
 		return getWebPage("https://ucheck.nl/api/voortgang.php?user=" + username + "&pass=" + key);		
+	}
+	
+	public JSONObject getGrades() {
+		String username = prefs.getUsername();
+		String key = prefs.getKey();
+		String data = getWebPage("https://ucheck.nl/api/cijfers.php?user=" + username + "&pass=" + key);
+		JSONObject obj;
+		try {
+			obj = new JSONObject(data);
+		} catch (JSONException e) {
+			obj = null;
+			e.printStackTrace();
+		}
+		return obj;
+	}
+	
+	public JSONObject getClasses() {
+		String username = prefs.getUsername();
+		String key = prefs.getKey();
+		String data = getWebPage("https://ucheck.nl/api/inschrijvingen.php?user=" + username + "&pass=" + key);
+		JSONObject obj;
+		try {
+			obj = new JSONObject(data);
+		} catch (JSONException e) {
+			obj = null;
+			e.printStackTrace();
+		}
+		return obj;
 	}
 
 	private String getWebPage(String page) {
