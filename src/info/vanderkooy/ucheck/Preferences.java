@@ -26,6 +26,15 @@ public class Preferences {
 	public String getUsername() {
 		return pref.getString("username", "");
 	}
+	
+	public boolean setStorePass(boolean store) {
+		editor.putBoolean("storePass", store);
+		return editor.commit();	
+	}
+	
+	public boolean getStorePass() {
+		return pref.getBoolean("storePass", false);
+	}
 
 	public boolean setPassword(String password) {	
 		safeEditor.putString("password", password);
