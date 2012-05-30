@@ -23,5 +23,6 @@
         <activity android:name=".Classes"></activity>
         <activity android:name=".Progress"></activity>
         <activity android:name=".Account"></activity>
+        <activity android:name=".Info" android:theme="@style/uCheckTheme"></activity>
     </application>
 </manifest>
