@@ -42,6 +42,7 @@ public class Login extends Activity {
 
 		infoButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
+				prefs.setGoingToInfo(true);
 				Intent infoIntent = new Intent().setClass(Login.this,
 						Info.class);
 				Login.this.startActivity(infoIntent);

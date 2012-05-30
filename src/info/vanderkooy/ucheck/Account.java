@@ -53,6 +53,7 @@ public class Account extends Activity {
 
 		infoButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
+				prefs.setGoingToInfo(true);
 				Intent infoIntent = new Intent().setClass(Account.this,
 						Info.class);
 				Account.this.startActivity(infoIntent);

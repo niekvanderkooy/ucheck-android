@@ -54,6 +54,16 @@ public class Preferences {
 		return safeEditor.commit();
 	}
 	
+	//Functions to determine if user is going to info screen, so login is not unnecessarily validated
+	public boolean setGoingToInfo(boolean b) {
+		editor.putBoolean("info", b);
+		return editor.commit();	
+	}
+	
+	public boolean getGoingToInfo() {
+		return pref.getBoolean("info", false);
+	}
+	
 	public Editor edit() {
 		return editor;		
 	}
