@@ -39,6 +39,7 @@ public class Login extends Activity {
 		username.setHint("Studentnummer");
 		password.setHint("uSis wachtwoord");
 		loginButton.setOnClickListener(loginListener);
+		storePass.setChecked(prefs.getStorePass());
 
 		infoButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
