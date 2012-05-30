@@ -4,16 +4,22 @@ import android.app.TabActivity;
 import android.content.Intent;
 //import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TabHost;
 
 public class UcheckAndroidMain extends TabActivity {
-
+	private APIHandler handler;
+	private Preferences prefs;
+	private TabHost tabHost;
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    handler = new APIHandler(getApplicationContext());
+	    prefs = new Preferences(getApplicationContext());
 	    //Resources res = getResources();
-		TabHost tabHost = getTabHost(); // The activity TabHost
+		tabHost = getTabHost(); // The activity TabHost
 		TabHost.TabSpec spec; // Resusable TabSpec for each tab
 		Intent intent; // Reusable Intent for each tab
 
@@ -43,8 +49,24 @@ public class UcheckAndroidMain extends TabActivity {
 		spec = tabHost.newTabSpec("account").setIndicator(getString(R.string.accountTab))
 				.setContent(intent);
 		tabHost.addTab(spec);
-
-		tabHost.setCurrentTab(0);
+		
+	}
+	
+	public void onResume() {
+		super.onResume();
+		if(handler.verifyLogin())
+			tabHost.setCurrentTab(0);
+		else {
+			Intent loginIntent = new Intent().setClass(UcheckAndroidMain.this, Account.class);
+			UcheckAndroidMain.this.startActivity(loginIntent);
+		}
+		
+	}
+	
+	public void onPause() {
+		super.onPause();
+		if(!prefs.getStorePass())
+			prefs.clearPassword();		
 	}
 
 }
