@@ -19,42 +19,22 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class APIHandler {
-	private SharedPreferences pref;
-	private SafeSharedPrefs safePref;
+	private Preferences prefs;
 
 	public APIHandler(Context ctx) {
-		pref = PreferenceManager.getDefaultSharedPreferences(ctx);
-		safePref = new SafeSharedPrefs(ctx, pref);
-	}
-
-	public boolean setUsername(String username) {
-		pref.edit().putString("username", username);
-		return pref.edit().commit();
-	}
-
-	public String getUsername() {
-		return pref.getString("username", "");
-	}
-
-	public boolean setPassword(String password) {	
-		safePref.edit().putString("password", password);
-		return pref.edit().commit();
-	}
-
-	public String getPassword() {
-		return safePref.getString("password", "");
+		prefs = new Preferences(ctx);
 	}
 
 	public boolean verifyLogin() {
-		String username = getUsername();
-		String password = getPassword();
+		String username = prefs.getUsername();
+		String password = prefs.getPassword();
 		if (username == "" || password == "")
 			return false;
 		
 		String key = getWebPage("https://ucheck.nl/api/login.php?user=" + URLEncoder.encode(username) + "&pass=" + URLEncoder.encode(password));
 		if(key.length() >= 3 && !key.substring(0, 3).equalsIgnoreCase("err")) {
-			pref.edit().putString("key", key);
-			return pref.edit().commit();
+			prefs.edit().putString("key", key);
+			return prefs.edit().commit();
 		} else {
 			return false;
 		}
