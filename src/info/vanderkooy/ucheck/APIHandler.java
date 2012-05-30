@@ -28,7 +28,8 @@ public class APIHandler {
 	}
 
 	public boolean setUsername(String username) {
-		return false;
+		pref.edit().putString("username", username);
+		return pref.edit().commit();
 	}
 
 	public String getUsername() {
@@ -36,7 +37,8 @@ public class APIHandler {
 	}
 
 	public boolean setPassword(String password) {	
-		return false;
+		safePref.edit().putString("password", password);
+		return pref.edit().commit();
 	}
 
 	public String getPassword() {
