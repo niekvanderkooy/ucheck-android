@@ -64,6 +64,10 @@ public class Preferences {
 		return pref.getBoolean("info", false);
 	}
 	
+	public String getKey() {
+		return pref.getString("key", "");
+	}
+	
 	public Editor edit() {
 		return editor;		
 	}
