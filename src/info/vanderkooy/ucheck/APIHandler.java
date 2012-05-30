@@ -25,18 +25,20 @@ public class APIHandler {
 		prefs = new Preferences(ctx);
 	}
 
-	public boolean verifyLogin() {
+	public int verifyLogin() {
 		String username = prefs.getUsername();
 		String password = prefs.getPassword();
 		if (username == "" || password == "")
-			return false;
+			return 0;
 		
 		String key = getWebPage("https://ucheck.nl/api/login.php?user=" + URLEncoder.encode(username) + "&pass=" + URLEncoder.encode(password));
 		if(key.length() >= 3 && !key.substring(0, 3).equalsIgnoreCase("err")) {
 			prefs.edit().putString("key", key);
-			return prefs.edit().commit();
+			return (prefs.edit().commit()) ? 1 : 0;
+		} else if (key.equals("")) {
+			return -1;
 		} else {
-			return false;
+			return 0;
 		}
 	}
 

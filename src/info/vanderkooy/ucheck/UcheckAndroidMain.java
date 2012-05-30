@@ -54,7 +54,7 @@ public class UcheckAndroidMain extends TabActivity {
 	
 	public void onResume() {
 		super.onResume();
-		if(handler.verifyLogin())
+		if(handler.verifyLogin() == 1)
 			tabHost.setCurrentTab(0);
 		else {
 			Intent loginIntent = new Intent().setClass(UcheckAndroidMain.this, Login.class);

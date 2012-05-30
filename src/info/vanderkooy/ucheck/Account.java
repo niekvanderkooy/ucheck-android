@@ -3,6 +3,7 @@ package info.vanderkooy.ucheck;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +40,8 @@ public class Account extends Activity {
 		password.setText("........");
 		username.setKeyListener(null);
 		password.setKeyListener(null);
+		username.setTextColor(Color.GRAY);
+		password.setTextColor(Color.GRAY);
 		storePass.setChecked(prefs.getStorePass());
 		storePass.setOnClickListener(new OnClickListener() {
 			@Override
@@ -61,7 +64,7 @@ public class Account extends Activity {
 		public void onClick(View v) {
 			prefs.clearPassword();
 			Intent loginIntent = new Intent().setClass(Account.this,
-					Account.class);
+					Login.class);
 			Account.this.startActivity(loginIntent);
 		}
 	};
