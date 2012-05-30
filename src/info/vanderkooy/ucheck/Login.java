@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -12,13 +11,14 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Account extends Activity {
+public class Login extends Activity {
+
 	private APIHandler handler;
 	private Preferences prefs;
 	private EditText username;
 	private EditText password;
 	private CheckBox storePass;
-	private ProgressDialog dialog;
+	
 
 	/** Called when the activity is first created. */
 	@Override
@@ -34,35 +34,35 @@ public class Account extends Activity {
 		password = (EditText) findViewById(R.id.password);
 		storePass = (CheckBox) findViewById(R.id.remember);
 
-		loginButton.setText("Uitloggen");
-		username.setText(prefs.getUsername());
-		password.setText("........");
-		username.setKeyListener(null);
-		password.setKeyListener(null);
-		storePass.setChecked(prefs.getStorePass());
-		storePass.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				prefs.setStorePass(storePass.isChecked());
-			}
-		});
-		loginButton.setOnClickListener(logoutListener);
+		loginButton.setText("Inloggen");
+		username.setHint("Studentnummer");
+		password.setHint("uSis wachtwoord");
+		loginButton.setOnClickListener(loginListener);
 
 		infoButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				Intent infoIntent = new Intent().setClass(Account.this,
+				Intent infoIntent = new Intent().setClass(Login.this,
 						Info.class);
-				Account.this.startActivity(infoIntent);
+				Login.this.startActivity(infoIntent);
 			}
 		});
 	}
-
-	private OnClickListener logoutListener = new OnClickListener() {
+	
+	private OnClickListener loginListener = new OnClickListener() {
 		public void onClick(View v) {
-			prefs.clearPassword();
-			Intent loginIntent = new Intent().setClass(Account.this,
-					Account.class);
-			Account.this.startActivity(loginIntent);
+			String usernameString = username.getText().toString();
+			if(!usernameString.substring(0, 1).equals("s"))
+				usernameString = "s" + usernameString;
+			prefs.setUsername(usernameString);
+			prefs.setPassword(password.getText().toString());
+			prefs.setStorePass(storePass.isChecked());
+			boolean success = handler.verifyLogin();
+			if(success)
+				finish();
+			else {
+				Toast toast = Toast.makeText(getApplicationContext(), "Ongeldige gebruikersnaam en/of wachtwoord", 3);
+				toast.show();
+			}
 		}
 	};
 

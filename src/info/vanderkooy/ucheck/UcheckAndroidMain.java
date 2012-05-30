@@ -57,7 +57,7 @@ public class UcheckAndroidMain extends TabActivity {
 		if(handler.verifyLogin())
 			tabHost.setCurrentTab(0);
 		else {
-			Intent loginIntent = new Intent().setClass(UcheckAndroidMain.this, Account.class);
+			Intent loginIntent = new Intent().setClass(UcheckAndroidMain.this, Login.class);
 			UcheckAndroidMain.this.startActivity(loginIntent);
 		}
 		
