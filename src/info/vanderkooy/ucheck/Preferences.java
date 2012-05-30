@@ -49,7 +49,7 @@ public class Preferences {
 		return pref.getString("password", "");
 	}
 	
-	public boolean clearPassowrd() {
+	public boolean clearPassword() {
 		safeEditor.remove("password");
 		return safeEditor.commit();
 	}
