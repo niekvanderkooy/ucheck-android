@@ -32,18 +32,15 @@ public class APIHandler {
 	}
 
 	public String getUsername() {
-		String username = "";
-		return username;
+		return pref.getString("username", "");
 	}
 
-	public boolean setPassword(String password) {
-
+	public boolean setPassword(String password) {	
 		return false;
 	}
 
 	public String getPassword() {
-		String password = "";
-		return password;
+		return safePref.getString("password", "");
 	}
 
 	public boolean verifyLogin() {
@@ -55,8 +52,6 @@ public class APIHandler {
 		String key = getWebPage("https://ucheck.nl/api/login.php?user=" + URLEncoder.encode(username) + "&pass=" + URLEncoder.encode(password));
 		if(key.length() >= 3 && !key.substring(0, 3).equalsIgnoreCase("err")) {
 			pref.edit().putString("key", key);
-			Log.w("uCheck", key);
-			Log.w("uCheck", key.substring(0, 3));
 			return pref.edit().commit();
 		} else {
 			return false;
