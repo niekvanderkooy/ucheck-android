@@ -66,7 +66,7 @@ public class Login extends Activity {
 				if(returned == 0) {
 					toast = Toast.makeText(getApplicationContext(), "Ongeldige gebruikersnaam en/of wachtwoord", 3);
 				} else {
-					toast = Toast.makeText(getApplicationContext(), "Er is een fout opgetreden in het account verificatie proces. Mogelijk is de server down, of heb je geen internetverbinding.", 5);
+					toast = Toast.makeText(getApplicationContext(), "Er is een fout opgetreden in het account verificatie proces. Mogelijk is de server down, of heb je geen internetverbinding.", 10);
 				}
 				toast.show();
 			}
