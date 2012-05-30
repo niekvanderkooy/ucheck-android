@@ -1,13 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#D1EEEE"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView"
-        android:text="Hai"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
-</LinearLayout>
+        <TableRow android:layout_marginTop="10dp" >
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:text="@string/username"
+                android:width="160px" />
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="fill_parent" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:text="@string/password" />
+
+            <EditText
+                android:id="@+id/password"
+                android:password="true" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView />
+
+            <CheckBox
+                android:id="@+id/remember"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/remember" />
+        </TableRow>
+
+        <TableRow>
+
+            <Button android:id="@+id/login" />
+        </TableRow>
+    </TableLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        android:padding="0dp" >
+
+        <Button
+            android:id="@+id/info"
+            android:layout_width="70px"
+            android:layout_height="70px"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:text="\?" >
+        </Button>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -8,5 +8,7 @@
     <string name="classesTab">Inschrijvingen</string>
     <string name="accountTab">Account</string>
     <string name="progressTab">Voortgang</string>
-
+    <string name="username">Studentnummer</string>
+    <string name="password">Wachtwoord</string>
+	<string name="remember">Onthoud wachtwoord</string>
 </resources>
