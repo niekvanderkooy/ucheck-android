@@ -18,7 +18,9 @@
 
             <EditText
                 android:id="@+id/username"
-                android:layout_width="fill_parent" />
+                android:layout_width="fill_parent"
+                android:singleLine="true" />
+
         </TableRow>
 
         <TableRow>
@@ -29,7 +31,9 @@
 
             <EditText
                 android:id="@+id/password"
-                android:password="true" />
+                android:password="true"
+                android:singleLine="true" />
+
         </TableRow>
 
         <TableRow>
