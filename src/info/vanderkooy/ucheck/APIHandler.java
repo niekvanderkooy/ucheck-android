@@ -33,13 +33,20 @@ public class APIHandler {
 		
 		String key = getWebPage("https://ucheck.nl/api/login.php?user=" + URLEncoder.encode(username) + "&pass=" + URLEncoder.encode(password));
 		if(key.length() >= 3 && !key.substring(0, 3).equalsIgnoreCase("err")) {
-			prefs.edit().putString("key", key);
+			//Probably some null character at the end of 'key' which is messing up requests etc.
+			prefs.edit().putString("key", key.substring(0, key.length() - 1));
 			return (prefs.edit().commit()) ? 1 : 0;
 		} else if (key.equals("")) {
 			return -1;
 		} else {
 			return 0;
 		}
+	}
+	
+	public String getProgress() {
+		String username = prefs.getUsername();
+		String key = prefs.getKey();
+		return getWebPage("https://ucheck.nl/api/voortgang.php?user=" + username + "&pass=" + key);		
 	}
 
 	private String getWebPage(String page) {
