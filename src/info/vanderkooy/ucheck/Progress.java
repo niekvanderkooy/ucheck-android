@@ -8,6 +8,7 @@ import android.widget.Toast;
 public class Progress extends Activity {
 	private WebView webView;
 	private APIHandler handler;
+	private Preferences prefs;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -16,12 +17,26 @@ public class Progress extends Activity {
 	    setContentView(R.layout.progress);
 	    webView = (WebView) findViewById(R.id.webView);
 	    handler = new APIHandler(getApplicationContext());
-	    String progressData = handler.getProgress();
+	    prefs = new Preferences(getApplicationContext());
+	    load();
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		if(prefs.progressNeedUpdate()) {
+			load();			
+		}
+	}
+	
+	private void load() {
+		String progressData = handler.getProgress();
 	    if(progressData.equals("")) {
 	    	Toast toast = Toast.makeText(getApplicationContext(), "Er is iets mis gegaan bij het ophalen van voortgangsdata. Probeer het later nog een keer.", 6);
 	    	toast.show();
 	    }
 	    webView.loadData(progressData, "text/html", null);
+	    prefs.setLastProgressUpdate();		
 	}
 
 }

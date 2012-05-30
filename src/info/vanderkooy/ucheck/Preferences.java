@@ -1,9 +1,14 @@
 package info.vanderkooy.ucheck;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class Preferences {
 	private SharedPreferences pref;
@@ -26,17 +31,17 @@ public class Preferences {
 	public String getUsername() {
 		return pref.getString("username", "");
 	}
-	
+
 	public boolean setStorePass(boolean store) {
 		editor.putBoolean("storePass", store);
-		return editor.commit();	
+		return editor.commit();
 	}
-	
+
 	public boolean getStorePass() {
 		return pref.getBoolean("storePass", false);
 	}
 
-	public boolean setPassword(String password) {	
+	public boolean setPassword(String password) {
 		safeEditor.putString("password", password);
 		return safeEditor.commit();
 	}
@@ -44,31 +49,109 @@ public class Preferences {
 	public String getPassword() {
 		return safePref.getString("password", "");
 	}
-	
+
 	public String getPasswordUnsafe() {
 		return pref.getString("password", "");
 	}
-	
+
 	public boolean clearPassword() {
 		safeEditor.remove("password");
 		return safeEditor.commit();
 	}
-	
-	//Functions to determine if user is going to info screen, so login is not unnecessarily validated
+
+	// Functions to determine if user is going to info screen, so login is not
+	// unnecessarily validated
 	public boolean setGoingToInfo(boolean b) {
 		editor.putBoolean("info", b);
-		return editor.commit();	
+		return editor.commit();
 	}
-	
+
 	public boolean getGoingToInfo() {
 		return pref.getBoolean("info", false);
 	}
-	
+
 	public String getKey() {
 		return pref.getString("key", "");
 	}
-	
+
 	public Editor edit() {
-		return editor;		
+		return editor;
+	}
+	
+	/***************************************************************
+	 * What follow is really ugly code to keep track
+	 * of when a particular tab was last updated,
+	 * to check if it needs to happen again. For lack
+	 * of iOS-like pull-to-refresh.
+	 * 
+	 * Maybe someone had a better idea and wants to patch it. :)
+	 * 
+	 **************************************************************/
+
+	public boolean setLastGradesUpdate() {
+		editor.putString("lastGradesUpdate", nowToString());
+		return editor.commit();
+	}
+
+	public boolean setLastClassesUpdate() {
+		editor.putString("lastClassesUpdate", nowToString());
+		return editor.commit();
+	}
+
+	public boolean setLastProgressUpdate() {
+		editor.putString("lastProgressUpdate", nowToString());
+		return editor.commit();
+	}
+
+	public boolean gradesNeedUpdate() {
+		Date lastUpdate = stringToDate(pref.getString("lastGradesUpdate",
+				"200001010900"));
+		Date dateNow = new Date();
+		if(minutesDiff(lastUpdate, dateNow) > 15)
+			return true;
+		return false;
+	}
+	
+	public boolean classesNeedUpdate() {
+		Date lastUpdate = stringToDate(pref.getString("lastClassesUpdate",
+				"200001010900"));
+		Date dateNow = new Date();
+		if(minutesDiff(lastUpdate, dateNow) > 15)
+			return true;
+		return false;
+	}
+	
+	public boolean progressNeedUpdate() {
+		Date lastUpdate = stringToDate(pref.getString("lastProgressUpdate",
+				"200001010900"));
+		Date dateNow = new Date();
+		if(minutesDiff(lastUpdate, dateNow) > 15)
+			return true;
+		return false;
+	}
+
+	private String nowToString() {
+		Date dateNow = new Date();
+
+		SimpleDateFormat date = new SimpleDateFormat("yyyyMMddHHmm");
+
+		StringBuilder now = new StringBuilder(date.format(dateNow));
+		return now.toString();
+	}
+
+	private Date stringToDate(String s) {
+		try {
+			return new SimpleDateFormat("yyyyMMddHHmm").parse(s);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return new Date();
+		}
+	}
+
+	private int minutesDiff(Date earlierDate, Date laterDate) {
+		if (earlierDate == null || laterDate == null)
+			return 0;
+
+		return (int) ((laterDate.getTime() / 60000) - (earlierDate.getTime() / 60000));
 	}
 }
