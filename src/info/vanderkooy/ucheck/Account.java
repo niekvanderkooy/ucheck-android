@@ -60,6 +60,7 @@ public class Account extends Activity {
 	
 	@Override
 	public void onResume() {
+		super.onResume();
 		username.setText(prefs.getUsername());
 		password.setText("........");
 		storePass.setChecked(prefs.getStorePass());		
