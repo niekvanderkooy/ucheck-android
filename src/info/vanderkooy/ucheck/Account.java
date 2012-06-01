@@ -36,13 +36,10 @@ public class Account extends Activity {
 		storePass = (CheckBox) findViewById(R.id.remember);
 
 		loginButton.setText("Uitloggen");
-		username.setText(prefs.getUsername());
-		password.setText("........");
 		username.setKeyListener(null);
 		password.setKeyListener(null);
 		username.setTextColor(Color.GRAY);
 		password.setTextColor(Color.GRAY);
-		storePass.setChecked(prefs.getStorePass());
 		storePass.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -59,6 +56,13 @@ public class Account extends Activity {
 				Account.this.startActivity(infoIntent);
 			}
 		});
+	}
+	
+	@Override
+	public void onResume() {
+		username.setText(prefs.getUsername());
+		password.setText("........");
+		storePass.setChecked(prefs.getStorePass());		
 	}
 
 	private OnClickListener logoutListener = new OnClickListener() {
