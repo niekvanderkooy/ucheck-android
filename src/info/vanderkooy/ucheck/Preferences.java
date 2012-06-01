@@ -87,7 +87,14 @@ public class Preferences {
 	 * Maybe someone had a better idea and wants to patch it. :)
 	 * 
 	 **************************************************************/
-
+	
+	public boolean forceNewData() {
+		editor.putString("lastGradesUpdate", "200001010900");
+		editor.putString("lastClassesUpdate", "200001010900");
+		editor.putString("lastProgressUpdate", "200001010900");
+		return editor.commit();
+	}
+	
 	public boolean setLastGradesUpdate() {
 		editor.putString("lastGradesUpdate", nowToString());
 		return editor.commit();

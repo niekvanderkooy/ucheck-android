@@ -61,9 +61,10 @@ public class Login extends Activity {
 			prefs.setStorePass(storePass.isChecked());
 			int returned = 0;
 			boolean success = (usernameString.length() < 7 || usernameString.length() > 9) ? false : ((returned = handler.verifyLogin()) == 1 ? true : false);
-			if(success)
+			if(success) {
+				prefs.forceNewData();
 				finish();
-			else {
+			} else {
 				Toast toast;
 				if(returned == 0) {
 					toast = Toast.makeText(getApplicationContext(), "Ongeldige gebruikersnaam en/of wachtwoord", 3);
