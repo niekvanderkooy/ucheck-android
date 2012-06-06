@@ -159,6 +159,8 @@ public class Grades extends Activity {
 				map.put("subject", (String) subjects.getJSONObject(i).get("vak"));
 				map.put("grade", (String) subjects.getJSONObject(i).get("cijfer"));
 				map.put("EC", (String) subjects.getJSONObject(i).get("ects"));
+				if(!(Boolean) subjects.getJSONObject(i).get("gehaald"))
+					map.put("gehaald", "false");
 				studie = (String) subjects.getJSONObject(i).get("studie");
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -167,7 +169,7 @@ public class Grades extends Activity {
 				mylist.add(map);
 			}
 		}
-		SimpleAdapter mSchedule = new SimpleAdapter(this, mylist, R.layout.row,
+		ListAdapter mSchedule = new ListAdapter(this, mylist, R.layout.row,
 		            new String[] {"subject", "grade", "EC"}, new int[] {R.id.subject, R.id.grade, R.id.EC});
 		list.setAdapter(mSchedule);
 		list.setSelector(android.R.color.transparent);
