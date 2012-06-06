@@ -169,7 +169,7 @@ public class Grades extends Activity {
 				mylist.add(map);
 			}
 		}
-		ListAdapter mSchedule = new ListAdapter(this, mylist, R.layout.row,
+		ListAdapter mSchedule = new ListAdapter(this, mylist, R.layout.rowgrades,
 		            new String[] {"subject", "grade", "EC"}, new int[] {R.id.subject, R.id.grade, R.id.EC});
 		list.setAdapter(mSchedule);
 		list.setSelector(android.R.color.transparent);
