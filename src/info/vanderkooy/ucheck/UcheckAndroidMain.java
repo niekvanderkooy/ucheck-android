@@ -1,5 +1,6 @@
 package info.vanderkooy.ucheck;
 
+import android.app.ProgressDialog;
 import android.app.TabActivity;
 import android.content.Intent;
 //import android.content.res.Resources;
@@ -10,6 +11,7 @@ public class UcheckAndroidMain extends TabActivity {
 	private APIHandler handler;
 	private Preferences prefs;
 	private TabHost tabHost;
+	private ProgressDialog dialog;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -54,12 +56,37 @@ public class UcheckAndroidMain extends TabActivity {
 	public void onResume() {
 		super.onResume();
 		if(!prefs.getGoingToInfo()) {
-			if(handler.verifyLogin() == 1)
-				tabHost.setCurrentTab(0);
-			else {
-				Intent loginIntent = new Intent().setClass(UcheckAndroidMain.this, Login.class);
-				UcheckAndroidMain.this.startActivity(loginIntent);
-			}
+			dialog = ProgressDialog.show(UcheckAndroidMain.this, "", "Login gegevens worden nagekeken.", true);
+
+			Thread thread = new Thread(new Runnable() {
+				public void run() {
+					if(handler.verifyLogin() == 1) {
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (dialog.isShowing()) {
+									dialog.hide();
+									dialog.dismiss();
+								}
+								tabHost.setCurrentTab(0);
+							}
+						});
+					} else {
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (dialog.isShowing()) {
+									dialog.hide();
+									dialog.dismiss();
+								}
+								Intent loginIntent = new Intent().setClass(UcheckAndroidMain.this, Login.class);
+								UcheckAndroidMain.this.startActivity(loginIntent);
+							}
+						});
+					}
+				}
+			});
+			thread.start();
 		} else {
 			prefs.setGoingToInfo(false);
 		}
