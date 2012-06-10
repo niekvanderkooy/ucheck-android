@@ -68,10 +68,14 @@ public class ListAdapter extends SimpleAdapter {
 			TextView EC = (TextView) convertView.findViewById(R.id.EC);
 			EC.setText(entry.get("EC"));
 			
-			if(subject.getText().equals("Vak")) {
+			if(position == 0 && subject.getText().equals("Vak")) {
 				subject.setTypeface(null, Typeface.BOLD);
 				grade.setTypeface(null, Typeface.BOLD);
 				EC.setTypeface(null, Typeface.BOLD);
+			} else {
+				subject.setTypeface(null, Typeface.NORMAL);
+				grade.setTypeface(null, Typeface.NORMAL);
+				EC.setTypeface(null, Typeface.NORMAL);				
 			}
 			
 			if(entry.get("gehaald") != null) {
@@ -86,9 +90,12 @@ public class ListAdapter extends SimpleAdapter {
 			TextView info = (TextView) convertView.findViewById(R.id.info);
 			info.setText(entry.get("info"));
 			
-			if(subject.getText().equals("Vak")) {
+			if(position == 0 && subject.getText().equals("Vak")) {
 				subject.setTypeface(null, Typeface.BOLD);
 				info.setTypeface(null, Typeface.BOLD);
+			} else {
+				subject.setTypeface(null, Typeface.NORMAL);
+				info.setTypeface(null, Typeface.NORMAL);			
 			}
 		}
 		
