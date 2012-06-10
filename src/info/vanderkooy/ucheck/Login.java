@@ -61,12 +61,12 @@ public class Login extends Activity {
 			String usernameString = username.getText().toString();
 			if(usernameString.length() >= 1 && !usernameString.substring(0, 1).equals("s"))
 				usernameString = "s" + usernameString;
-			prefs.setUsername(usernameString);
-			prefs.setPassword(password.getText().toString());
-			prefs.setStorePass(storePass.isChecked());
 			int returned = 0;
 			boolean success = (usernameString.length() < 7 || usernameString.length() > 9) ? false : ((returned = handler.verifyLogin()) == 1 ? true : false);
 			if(success) {
+				prefs.setUsername(usernameString);
+				prefs.setPassword(password.getText().toString());
+				prefs.setStorePass(storePass.isChecked());
 				if(!usr.equals(usernameString))
 					prefs.forceNewData();
 				finish();
