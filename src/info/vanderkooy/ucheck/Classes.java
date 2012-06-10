@@ -105,7 +105,7 @@ public class Classes extends Activity {
 
 	private void updateSpinner() {
 		ArrayList<String> spinnerArray = new ArrayList<String>();
-		spinnerArray.add("Alle");
+		spinnerArray.add("Alle vakken");
 		for (int i = 0; i < studies.length(); i++) {
 			try {
 				if (studieLijst.get((String) studies.get(i)) != null)
@@ -154,7 +154,7 @@ public class Classes extends Activity {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			if(subject.equals("Alle") || subject.equals(studie)) {
+			if(subject.equals("Alle vakken") || subject.equals(studie)) {
 				mylist.add(map);
 			}
 		}

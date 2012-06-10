@@ -125,7 +125,7 @@ public class Grades extends Activity {
 
 	private void updateSpinner() {
 		ArrayList<String> spinnerArray = new ArrayList<String>();
-		spinnerArray.add("Alle");
+		spinnerArray.add("Alle cijfers");
 		for (int i = 0; i < studies.size(); i++) {
 			if (studieLijst.get(studies.get(i)) != null)
 				spinnerArray.add(studieLijst.get(studies.get(i)));
@@ -175,7 +175,7 @@ public class Grades extends Activity {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			if (subject.equals("Alle") || subject.equals(studie)) {
+			if (subject.equals("Alle cijfers") || subject.equals(studie)) {
 				mylist.add(map);
 			}
 		}
