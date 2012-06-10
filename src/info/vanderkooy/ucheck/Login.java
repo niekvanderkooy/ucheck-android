@@ -34,7 +34,12 @@ public class Login extends Activity {
 		storePass = (CheckBox) findViewById(R.id.remember);
 
 		loginButton.setText("Inloggen");
-		username.setHint("Studentnummer");
+		
+		String usr = prefs.getUsername();
+		if(usr == null)
+			username.setHint("Studentnummer");
+		else
+			username.setText(usr);
 		password.setHint("uSis wachtwoord");
 		loginButton.setOnClickListener(loginListener);
 		storePass.setChecked(prefs.getStorePass());
