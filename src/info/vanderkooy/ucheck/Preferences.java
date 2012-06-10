@@ -127,7 +127,7 @@ public class Preferences {
 		Date lastUpdate = stringToDate(pref.getString("lastGradesUpdate",
 				"200001010900"));
 		Date dateNow = new Date();
-		if(minutesDiff(lastUpdate, dateNow) > 15)
+		if(minutesDiff(lastUpdate, dateNow) > 60)
 			return true;
 		return false;
 	}
@@ -136,7 +136,7 @@ public class Preferences {
 		Date lastUpdate = stringToDate(pref.getString("lastClassesUpdate",
 				"200001010900"));
 		Date dateNow = new Date();
-		if(minutesDiff(lastUpdate, dateNow) > 15)
+		if(minutesDiff(lastUpdate, dateNow) > 60)
 			return true;
 		return false;
 	}
@@ -145,7 +145,7 @@ public class Preferences {
 		Date lastUpdate = stringToDate(pref.getString("lastProgressUpdate",
 				"200001010900"));
 		Date dateNow = new Date();
-		if(minutesDiff(lastUpdate, dateNow) > 15)
+		if(minutesDiff(lastUpdate, dateNow) > 60)
 			return true;
 		return false;
 	}
