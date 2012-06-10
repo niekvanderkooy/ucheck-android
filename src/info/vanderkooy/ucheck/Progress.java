@@ -3,7 +3,6 @@ package info.vanderkooy.ucheck;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.webkit.WebView;
 import android.widget.Toast;
 

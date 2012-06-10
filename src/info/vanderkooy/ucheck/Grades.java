@@ -13,23 +13,13 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.LayoutParams;
-import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 public class Grades extends Activity {
 	private APIHandler handler;
@@ -38,7 +28,6 @@ public class Grades extends Activity {
 	private JSONArray subjects;
 	private List<String> studies;
 	private Spinner spinner;
-	private ListView list;
 	private ProgressDialog dialog;
 
 	private Map<String, String> studieLijst = new HashMap<String, String>();
@@ -52,7 +41,6 @@ public class Grades extends Activity {
 		setContentView(R.layout.grades);
 
 		spinner = (Spinner) findViewById(R.id.spinner);
-		list = (ListView) findViewById(R.id.list);
 		handler = new APIHandler(getApplicationContext());
 		prefs = new Preferences(getApplicationContext());
 		studies = new ArrayList<String>();
@@ -128,7 +116,6 @@ public class Grades extends Activity {
 		}
 		if (numberOfStudies > 1) {
 			spinner.setVisibility(0);
-			Log.v("uCheck", "goingToUpdate");
 			updateSpinner();
 		} else {
 			spinner.setVisibility(8);
@@ -164,7 +151,6 @@ public class Grades extends Activity {
 	}
 
 	public void makeList(String subject) {
-		Log.v("uCheck", "makeList " + subject);
 		ListView list = (ListView) findViewById(R.id.list);
 		String studie = "";
 

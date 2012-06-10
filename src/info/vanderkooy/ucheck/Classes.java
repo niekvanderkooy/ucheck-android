@@ -2,7 +2,6 @@ package info.vanderkooy.ucheck;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -13,23 +12,13 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.LayoutParams;
-import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 public class Classes extends Activity {
 	private APIHandler handler;
@@ -37,14 +26,11 @@ public class Classes extends Activity {
 	private JSONObject data;
 	private JSONArray studies;
 	private JSONArray enrollments;
-	//private List<String> studies;
 	private Spinner spinner;
-	private ListView list;
 	private ProgressDialog dialog;
 
 	private Map<String, String> studieLijst = new HashMap<String, String>();
 
-	private int numberOfStudies;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -52,7 +38,6 @@ public class Classes extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.classes);
 		spinner = (Spinner) findViewById(R.id.spinner);
-		list = (ListView) findViewById(R.id.list);
 		handler = new APIHandler(getApplicationContext());
 		prefs = new Preferences(getApplicationContext());
 
