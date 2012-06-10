@@ -3,6 +3,7 @@ package info.vanderkooy.ucheck;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -17,6 +18,7 @@ public class Login extends Activity {
 	private EditText username;
 	private EditText password;
 	private CheckBox storePass;
+	private String usr;
 	
 
 	/** Called when the activity is first created. */
@@ -35,7 +37,7 @@ public class Login extends Activity {
 
 		loginButton.setText("Inloggen");
 		
-		String usr = prefs.getUsername();
+		usr = prefs.getUsername();
 		if(usr == null)
 			username.setHint("Studentnummer");
 		else
@@ -65,7 +67,8 @@ public class Login extends Activity {
 			int returned = 0;
 			boolean success = (usernameString.length() < 7 || usernameString.length() > 9) ? false : ((returned = handler.verifyLogin()) == 1 ? true : false);
 			if(success) {
-				prefs.forceNewData();
+				if(!usr.equals(usernameString))
+					prefs.forceNewData();
 				finish();
 			} else {
 				Toast toast;
