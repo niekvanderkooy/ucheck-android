@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -38,6 +39,7 @@ public class Grades extends Activity {
 	private List<String> studies;
 	private Spinner spinner;
 	private ListView list;
+	private ProgressDialog dialog;
 
 	private Map<String, String> studieLijst = new HashMap<String, String>();
 
@@ -48,13 +50,14 @@ public class Grades extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.grades);
+
 		spinner = (Spinner) findViewById(R.id.spinner);
 		list = (ListView) findViewById(R.id.list);
 		handler = new APIHandler(getApplicationContext());
 		prefs = new Preferences(getApplicationContext());
 		studies = new ArrayList<String>();
-		fillStudieLijst();
-		load();
+		
+		prefs.forceNewGrades();
 	}
 
 	@Override
@@ -63,12 +66,31 @@ public class Grades extends Activity {
 		if (prefs.gradesNeedUpdate()) {
 			load();
 		}
-		Log.v("ucheck", data.toString());
 	}
 
 	private void load() {
-		Log.v("uCheck", "load");
-		data = handler.getGrades();
+		dialog = ProgressDialog.show(Grades.this, "", "Data wordt opgehaald.", true);
+
+		Thread thread = new Thread(new Runnable() {
+			public void run() {
+				fillStudieLijst();
+				data = handler.getGrades();
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						processData();
+						if (dialog.isShowing()) {
+							dialog.hide();
+							dialog.dismiss();
+						}
+					}
+				});
+			}
+		});
+		thread.start();
+	}
+
+	private void processData() {
 		if (data == null) {
 			Toast toast = Toast
 					.makeText(
@@ -145,7 +167,7 @@ public class Grades extends Activity {
 		Log.v("uCheck", "makeList " + subject);
 		ListView list = (ListView) findViewById(R.id.list);
 		String studie = "";
-		 
+
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
 		HashMap<String, String> map;
 		map = new HashMap<String, String>();
@@ -156,21 +178,24 @@ public class Grades extends Activity {
 		for (int i = 0; i < subjects.length(); i++) {
 			map = new HashMap<String, String>();
 			try {
-				map.put("subject", (String) subjects.getJSONObject(i).get("vak"));
-				map.put("grade", (String) subjects.getJSONObject(i).get("cijfer"));
+				map.put("subject", (String) subjects.getJSONObject(i)
+						.get("vak"));
+				map.put("grade",
+						(String) subjects.getJSONObject(i).get("cijfer"));
 				map.put("EC", (String) subjects.getJSONObject(i).get("ects"));
-				if(!(Boolean) subjects.getJSONObject(i).get("gehaald"))
+				if (!(Boolean) subjects.getJSONObject(i).get("gehaald"))
 					map.put("gehaald", "false");
 				studie = (String) subjects.getJSONObject(i).get("studie");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			if(subject.equals("Alle") || subject.equals(studie)) {
+			if (subject.equals("Alle") || subject.equals(studie)) {
 				mylist.add(map);
 			}
 		}
-		ListAdapter mSchedule = new ListAdapter(this, mylist, R.layout.rowgrades,
-		            new String[] {"subject", "grade", "EC"}, new int[] {R.id.subject, R.id.grade, R.id.EC});
+		ListAdapter mSchedule = new ListAdapter(this, mylist,
+				R.layout.rowgrades, new String[] { "subject", "grade", "EC" },
+				new int[] { R.id.subject, R.id.grade, R.id.EC });
 		list.setAdapter(mSchedule);
 		list.setSelector(android.R.color.transparent);
 

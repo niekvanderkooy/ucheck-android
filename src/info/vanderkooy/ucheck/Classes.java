@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +40,7 @@ public class Classes extends Activity {
 	//private List<String> studies;
 	private Spinner spinner;
 	private ListView list;
+	private ProgressDialog dialog;
 
 	private Map<String, String> studieLijst = new HashMap<String, String>();
 
@@ -53,8 +55,8 @@ public class Classes extends Activity {
 		list = (ListView) findViewById(R.id.list);
 		handler = new APIHandler(getApplicationContext());
 		prefs = new Preferences(getApplicationContext());
-		fillStudieLijst();
-		load();
+
+		prefs.forceNewClasses();
 	}
 
 	@Override
@@ -63,12 +65,31 @@ public class Classes extends Activity {
 		if (prefs.classesNeedUpdate()) {
 			load();
 		}
-		Log.v("ucheck", data.toString());
+	}
+	
+	private void load() {
+		dialog = ProgressDialog.show(Classes.this, "", "Data wordt opgehaald.", true);
+
+		Thread thread = new Thread(new Runnable() {
+			public void run() {
+				fillStudieLijst();
+				data = handler.getClasses();
+				runOnUiThread(new Runnable() {
+					@Override
+					public void run() {
+						processData();
+						if (dialog.isShowing()) {
+							dialog.hide();
+							dialog.dismiss();
+						}
+					}
+				});
+			}
+		});
+		thread.start();
 	}
 
-	private void load() {
-		Log.v("uCheck", "load");
-		data = handler.getClasses();
+	private void processData() {
 		if (data == null) {
 			Toast toast = Toast
 					.makeText(
@@ -81,22 +102,19 @@ public class Classes extends Activity {
 		try {
 			studies = data.getJSONArray("studies");
 			enrollments = data.getJSONArray("inschrijvingen");
+			if (studies.length() > 1) {
+				spinner.setVisibility(0);
+				updateSpinner();
+			} else {
+				spinner.setVisibility(8);
+				makeList("Alle");
+			}
 		} catch (JSONException e) {
-			Toast toast = Toast
-					.makeText(
-							getApplicationContext(),
-							"Er is iets mis gegaan bij het ophalen van cijferdata. Probeer het later nog een keer.",
-							6);
+			Toast toast = Toast.makeText(getApplicationContext(), 
+					"Er is iets mis gegaan bij het ophalen van cijferdata. Probeer het later nog een keer.", 6);
 			toast.show();
+			prefs.forceNewClasses();
 			e.printStackTrace();
-		}
-		if (studies.length() > 1) {
-			spinner.setVisibility(0);
-			Log.v("uCheck", "goingToUpdate");
-			updateSpinner();
-		} else {
-			spinner.setVisibility(8);
-			makeList("Alle");
 		}
 	}
 
@@ -133,7 +151,6 @@ public class Classes extends Activity {
 	}
 
 	public void makeList(String subject) {
-		Log.v("uCheck", "makeList " + subject);
 		ListView list = (ListView) findViewById(R.id.list);
 		String studie = "";
 		 

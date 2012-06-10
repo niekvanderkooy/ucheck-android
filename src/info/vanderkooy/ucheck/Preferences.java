@@ -89,10 +89,23 @@ public class Preferences {
 	 **************************************************************/
 	
 	public boolean forceNewData() {
+		return (forceNewGrades() && forceNewClasses() && forceNewProgress());
+	}
+	
+	public boolean forceNewGrades() {
 		editor.putString("lastGradesUpdate", "200001010900");
+		return editor.commit();
+	}
+	
+	public boolean forceNewClasses() {
 		editor.putString("lastClassesUpdate", "200001010900");
+		return editor.commit();
+	}
+	
+	public boolean forceNewProgress() {
 		editor.putString("lastProgressUpdate", "200001010900");
 		return editor.commit();
+		
 	}
 	
 	public boolean setLastGradesUpdate() {
