@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#D1EEEE" >
+    android:background="#f4f4f4" >
 
     <TextView
         android:id="@+id/textView1"
