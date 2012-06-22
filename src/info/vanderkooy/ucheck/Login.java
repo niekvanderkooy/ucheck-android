@@ -43,6 +43,7 @@ public class Login extends Activity {
 		else
 			username.setText(usr);
 		password.setHint("uSis wachtwoord");
+		password.setTextSize(13);
 		loginButton.setOnClickListener(loginListener);
 		storePass.setChecked(prefs.getStorePass());
 

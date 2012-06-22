@@ -72,7 +72,7 @@ public class Grades extends Activity {
 							dialog.hide();
 							dialog.dismiss();
 						}
-						if(success == -1) {
+						if(success == -1 && !prefs.getKey().equals("")) {
 							Intent loginIntent = new Intent().setClass(Grades.this, Login.class);
 							Grades.this.startActivity(loginIntent);
 						}
