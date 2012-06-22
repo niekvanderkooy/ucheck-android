@@ -12,6 +12,7 @@ public class UcheckAndroidMain extends TabActivity {
 	private Preferences prefs;
 	private TabHost tabHost;
 	private ProgressDialog dialog;
+	private int lastTab;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -23,6 +24,8 @@ public class UcheckAndroidMain extends TabActivity {
 		tabHost = getTabHost(); // The activity TabHost
 		TabHost.TabSpec spec; // Reusable TabSpec for each tab
 		Intent intent; // Reusable Intent for each tab
+		
+		lastTab = 0;
 
 		// Create an Intent to launch an Activity for the tab (to be reused)
 		intent = new Intent().setClass(this, Grades.class);
@@ -60,7 +63,7 @@ public class UcheckAndroidMain extends TabActivity {
 				Intent loginIntent = new Intent().setClass(UcheckAndroidMain.this, Login.class);
 				UcheckAndroidMain.this.startActivity(loginIntent);
 			} else {
-				tabHost.setCurrentTab(0);
+				tabHost.setCurrentTab(lastTab);
 			}
 		} else {
 			prefs.setGoingToInfo(false);
@@ -70,8 +73,9 @@ public class UcheckAndroidMain extends TabActivity {
 	
 	public void onPause() {
 		super.onPause();
+		lastTab = tabHost.getCurrentTab();
 		if(!prefs.getStorePass())
-			prefs.clearKey();		
+			prefs.clearKey();	
 	}
 
 }
