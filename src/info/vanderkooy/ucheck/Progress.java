@@ -1,5 +1,8 @@
 package info.vanderkooy.ucheck;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -55,11 +58,19 @@ public class Progress extends Activity {
 	}
 	
 	private void processData() {
-	    if(progressData.equals("")) {
+	    String webData = "";
+		try {
+			//When not using URLEncoder, webView.loadData() tries to load the HTML as a URL.
+			webData = URLEncoder.encode(progressData,"utf-8").replaceAll("\\+"," ");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    if(progressData.equals("") || webData.equals("")) {
 	    	Toast toast = Toast.makeText(getApplicationContext(), "Er is iets mis gegaan bij het ophalen van voortgangsdata. Probeer het later nog een keer.", 6);
 	    	toast.show();
 	    }
-	    webView.loadData(progressData, "text/html", null);
+	    webView.loadData(webData, "text/html", null);
 	    prefs.setLastProgressUpdate();		
 	}
 
