@@ -21,7 +21,7 @@ public class UcheckAndroidMain extends TabActivity {
 	    prefs = new Preferences(getApplicationContext());
 	    //Resources res = getResources();
 		tabHost = getTabHost(); // The activity TabHost
-		TabHost.TabSpec spec; // Resusable TabSpec for each tab
+		TabHost.TabSpec spec; // Reusable TabSpec for each tab
 		Intent intent; // Reusable Intent for each tab
 
 		// Create an Intent to launch an Activity for the tab (to be reused)
@@ -56,37 +56,12 @@ public class UcheckAndroidMain extends TabActivity {
 	public void onResume() {
 		super.onResume();
 		if(!prefs.getGoingToInfo()) {
-			dialog = ProgressDialog.show(UcheckAndroidMain.this, "", "Login gegevens worden nagekeken.", true);
-
-			Thread thread = new Thread(new Runnable() {
-				public void run() {
-					if(handler.verifyLogin() == 1) {
-						runOnUiThread(new Runnable() {
-							@Override
-							public void run() {
-								if (dialog.isShowing()) {
-									dialog.hide();
-									dialog.dismiss();
-								}
-								tabHost.setCurrentTab(0);
-							}
-						});
-					} else {
-						runOnUiThread(new Runnable() {
-							@Override
-							public void run() {
-								if (dialog.isShowing()) {
-									dialog.hide();
-									dialog.dismiss();
-								}
-								Intent loginIntent = new Intent().setClass(UcheckAndroidMain.this, Login.class);
-								UcheckAndroidMain.this.startActivity(loginIntent);
-							}
-						});
-					}
-				}
-			});
-			thread.start();
+			if(prefs.getKey().equals("")) {
+				Intent loginIntent = new Intent().setClass(UcheckAndroidMain.this, Login.class);
+				UcheckAndroidMain.this.startActivity(loginIntent);
+			} else {
+				tabHost.setCurrentTab(0);
+			}
 		} else {
 			prefs.setGoingToInfo(false);
 		}
@@ -96,7 +71,7 @@ public class UcheckAndroidMain extends TabActivity {
 	public void onPause() {
 		super.onPause();
 		if(!prefs.getStorePass())
-			prefs.clearPassword();		
+			prefs.clearKey();		
 	}
 
 }

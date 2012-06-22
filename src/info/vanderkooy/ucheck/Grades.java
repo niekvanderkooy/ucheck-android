@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -66,10 +67,14 @@ public class Grades extends Activity {
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						processData();
+						int success = processData();
 						if (dialog.isShowing()) {
 							dialog.hide();
 							dialog.dismiss();
+						}
+						if(success == -1) {
+							Intent loginIntent = new Intent().setClass(Grades.this, Login.class);
+							Grades.this.startActivity(loginIntent);
 						}
 					}
 				});
@@ -78,7 +83,7 @@ public class Grades extends Activity {
 		thread.start();
 	}
 
-	private void processData() {
+	private int processData() {
 		if (data == null) {
 			Toast toast = Toast
 					.makeText(
@@ -86,6 +91,15 @@ public class Grades extends Activity {
 							"Er is iets mis gegaan bij het ophalen van cijferdata. Probeer het later nog een keer.",
 							6);
 			toast.show();
+		}
+		String loginerror = "uninit";
+		try {
+			loginerror = data.getString("error");
+		} catch (JSONException e1) {
+			// No error, so password was correct
+		}
+		if(loginerror.equals("loginerror")) {
+			return -1;			
 		}
 		prefs.setLastGradesUpdate();
 		try {
@@ -121,6 +135,7 @@ public class Grades extends Activity {
 			spinner.setVisibility(8);
 			makeList("Alle");
 		}
+		return 0;
 	}
 
 	private void updateSpinner() {

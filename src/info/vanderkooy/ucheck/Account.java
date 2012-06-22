@@ -62,7 +62,7 @@ public class Account extends Activity {
 
 	private OnClickListener logoutListener = new OnClickListener() {
 		public void onClick(View v) {
-			prefs.clearPassword();
+			prefs.clearKey();
 			Intent loginIntent = new Intent().setClass(Account.this,
 					Login.class);
 			Account.this.startActivity(loginIntent);

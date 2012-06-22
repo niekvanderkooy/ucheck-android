@@ -24,9 +24,7 @@ public class APIHandler {
 		prefs = new Preferences(ctx);
 	}
 
-	public int verifyLogin() {
-		String username = prefs.getUsername();
-		String password = prefs.getPassword();
+	public int getKey(String username, String password) {
 		if (username == "" || password == "")
 			return 0;
 		
@@ -34,6 +32,7 @@ public class APIHandler {
 		if(key.length() >= 3 && !key.substring(0, 3).equalsIgnoreCase("err")) {
 			//Probably some null character at the end of 'key' which is messing up requests etc.
 			prefs.edit().putString("key", key.substring(0, key.length() - 1));
+			prefs.setUsername(username);
 			return (prefs.edit().commit()) ? 1 : 0;
 		} else if (key.equals("")) {
 			return -1;
