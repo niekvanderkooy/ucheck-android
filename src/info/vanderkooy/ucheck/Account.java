@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Account extends Activity {
 	private Preferences prefs;
@@ -25,6 +26,7 @@ public class Account extends Activity {
 		prefs = new Preferences(getApplicationContext());
 		Button infoButton = (Button) findViewById(R.id.info);
 		Button loginButton = (Button) findViewById(R.id.login);
+		Button newData = (Button) findViewById(R.id.newData);
 		username = (EditText) findViewById(R.id.username);
 		password = (EditText) findViewById(R.id.password);
 		storePass = (CheckBox) findViewById(R.id.remember);
@@ -38,6 +40,14 @@ public class Account extends Activity {
 			@Override
 			public void onClick(View v) {
 				prefs.setStorePass(storePass.isChecked());
+			}
+		});
+		newData.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				prefs.forceNewData();
+				Toast toast = Toast.makeText(getApplicationContext(), "Alle data zal worden vernieuwd.", 5);
+				toast.show();
 			}
 		});
 		loginButton.setOnClickListener(logoutListener);

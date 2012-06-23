@@ -30,10 +30,13 @@ public class Login extends Activity {
 		handler = new APIHandler(getApplicationContext());
 		prefs = new Preferences(getApplicationContext());
 		Button infoButton = (Button) findViewById(R.id.info);
+		Button newData = (Button) findViewById(R.id.newData);
 		Button loginButton = (Button) findViewById(R.id.login);
 		username = (EditText) findViewById(R.id.username);
 		password = (EditText) findViewById(R.id.password);
 		storePass = (CheckBox) findViewById(R.id.remember);
+		
+		newData.setVisibility(8);
 
 		loginButton.setText("Inloggen");
 		
