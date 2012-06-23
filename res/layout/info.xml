@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="#f4f4f4" >
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:gravity="center"
         android:autoLink="web"
         android:text="Ontwikkeld door\nNiek van der Kooy\n\n met de hulp van de uCheck API door\nHans Pinckaers\n\n\nDeze app is open-source!\nHelp mee met ontwikkeling via:\ngithub.com/niekvanderkooy/ucheck-android" />
