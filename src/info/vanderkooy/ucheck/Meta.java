@@ -1,9 +1,12 @@
 package info.vanderkooy.ucheck;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Meta {
-	public static Map<String, String> fillStudieLijst(Map<String, String> studieLijst) {
+	public static Map<String, String> getStudieLijst() {
+		Map<String, String> studieLijst = new HashMap<String, String>();
+		
 		studieLijst.put("ALG", "Algemeen vakgebied");
 		studieLijst.put("ARAB", "Arabische talen en culturen");
 		studieLijst.put("ARCH", "Archeologie en prehistorie");

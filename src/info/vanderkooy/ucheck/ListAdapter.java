@@ -29,27 +29,7 @@ public class ListAdapter extends SimpleAdapter {
 		this.from = from;
 		this.to = to;
 	}
-
-	public int getCount() {
-		return data.size();
-	}
-
-	public Object getItem(int position) {
-		return data.get(position);
-	}
-
-	public long getItemId(int position) {
-		return position;
-	}
 	
-	
-	/*******************************************
-	 * Very inflexible code which I can't
-	 * be bothered to change at the moment,
-	 * because it's very late and I'm tired.
-	 * 
-	 * Sorry.
-	 ******************************************/
 	public View getView(int position, View convertView, ViewGroup viewGroup) {
 		HashMap<String, String> entry = data.get(position);
 		if (convertView == null) {
@@ -58,44 +38,18 @@ public class ListAdapter extends SimpleAdapter {
 			convertView = inflater.inflate(resource, null);
 		}
 		
-		if(to.length == 3) {
-			TextView subject = (TextView) convertView.findViewById(R.id.subject);
-			subject.setText(entry.get("subject"));
-	
-			TextView grade = (TextView) convertView.findViewById(R.id.grade);
-			grade.setText(entry.get("grade"));
-			
-			TextView EC = (TextView) convertView.findViewById(R.id.EC);
-			EC.setText(entry.get("EC"));
-			
-			if(position == 0 && subject.getText().equals("Vak")) {
-				subject.setTypeface(null, Typeface.BOLD);
-				grade.setTypeface(null, Typeface.BOLD);
-				EC.setTypeface(null, Typeface.BOLD);
-			} else {
-				subject.setTypeface(null, Typeface.NORMAL);
-				grade.setTypeface(null, Typeface.NORMAL);
-				EC.setTypeface(null, Typeface.NORMAL);				
-			}
-			
-			if(entry.get("gehaald") != null) {
-				grade.setTextColor(Color.RED);
-			}
+		TextView[] tvs = new TextView[to.length];
+		for(int i = 0; i < to.length; i++) {
+			tvs[i] = (TextView) convertView.findViewById(to[i]);
+			tvs[i].setText(entry.get(from[i]));
+			tvs[i].setTypeface(null, Typeface.NORMAL);
+			if(entry.get("gehaald") != null)
+				tvs[i].setTextColor(Color.RED);
 		}
 		
-		if(to.length == 2) {
-			TextView subject = (TextView) convertView.findViewById(R.id.classes);
-			subject.setText(entry.get("classes"));
-	
-			TextView info = (TextView) convertView.findViewById(R.id.info);
-			info.setText(entry.get("info"));
-			
-			if(position == 0 && subject.getText().equals("Vak")) {
-				subject.setTypeface(null, Typeface.BOLD);
-				info.setTypeface(null, Typeface.BOLD);
-			} else {
-				subject.setTypeface(null, Typeface.NORMAL);
-				info.setTypeface(null, Typeface.NORMAL);			
+		if(position == 0 && tvs[0].getText().equals("Vak")) {
+			for(int i = 0; i < to.length; i++) {
+				tvs[i].setTypeface(null, Typeface.BOLD);
 			}
 		}
 		

@@ -31,7 +31,7 @@ public class Grades extends Activity {
 	private Spinner spinner;
 	private ProgressDialog dialog;
 
-	private Map<String, String> studieLijst = new HashMap<String, String>();
+	private Map<String, String> studieLijst = Meta.getStudieLijst();
 
 	private int numberOfStudies;
 
@@ -45,7 +45,7 @@ public class Grades extends Activity {
 		handler = new APIHandler(getApplicationContext());
 		prefs = new Preferences(getApplicationContext());
 		studies = new ArrayList<String>();
-		
+
 		prefs.forceNewGrades();
 	}
 
@@ -58,11 +58,11 @@ public class Grades extends Activity {
 	}
 
 	private void load() {
-		dialog = ProgressDialog.show(Grades.this, "", "Data wordt opgehaald.", true);
+		dialog = ProgressDialog.show(Grades.this, "", "Data wordt opgehaald.",
+				true);
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
-				Meta.fillStudieLijst(studieLijst);
 				data = handler.getGrades();
 				runOnUiThread(new Runnable() {
 					@Override
@@ -72,8 +72,9 @@ public class Grades extends Activity {
 							dialog.hide();
 							dialog.dismiss();
 						}
-						if(success == -1 && !prefs.getKey().equals("")) {
-							Intent loginIntent = new Intent().setClass(Grades.this, Login.class);
+						if (success == -1 && !prefs.getKey().equals("")) {
+							Intent loginIntent = new Intent().setClass(
+									Grades.this, Login.class);
 							Grades.this.startActivity(loginIntent);
 						}
 					}
@@ -98,8 +99,8 @@ public class Grades extends Activity {
 		} catch (JSONException e1) {
 			// No error, so password was correct
 		}
-		if(loginerror.equals("loginerror")) {
-			return -1;			
+		if (loginerror.equals("loginerror")) {
+			return -1;
 		}
 		prefs.setLastGradesUpdate();
 		try {
@@ -156,7 +157,7 @@ public class Grades extends Activity {
 		spinner.setOnItemSelectedListener(new MyOnItemSelectedListener());
 	}
 
-	private static <T, E> T getKeyByValue(Map<T, E> map, E value) {
+	private <T, E> T getKeyByValue(Map<T, E> map, E value) {
 		for (Entry<T, E> entry : map.entrySet()) {
 			if (value.equals(entry.getValue())) {
 				return entry.getKey();
@@ -165,7 +166,7 @@ public class Grades extends Activity {
 		return null;
 	}
 
-	public void makeList(String subject) {
+	private void makeList(String subject) {
 		ListView list = (ListView) findViewById(R.id.list);
 		String studie = "";
 

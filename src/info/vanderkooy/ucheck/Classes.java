@@ -29,7 +29,7 @@ public class Classes extends Activity {
 	private Spinner spinner;
 	private ProgressDialog dialog;
 
-	private Map<String, String> studieLijst = new HashMap<String, String>();
+	private Map<String, String> studieLijst = Meta.getStudieLijst();
 
 
 	/** Called when the activity is first created. */
@@ -57,7 +57,6 @@ public class Classes extends Activity {
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
-				Meta.fillStudieLijst(studieLijst);
 				data = handler.getClasses();
 				runOnUiThread(new Runnable() {
 					@Override

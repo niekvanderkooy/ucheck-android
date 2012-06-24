@@ -19,6 +19,9 @@ public class Login extends Activity {
 	private EditText password;
 	private CheckBox storePass;
 	private String usr;
+	private Button infoButton;
+	private Button loginButton;
+	private Button newData;
 	
 
 	/** Called when the activity is first created. */
@@ -29,16 +32,15 @@ public class Login extends Activity {
 
 		handler = new APIHandler(getApplicationContext());
 		prefs = new Preferences(getApplicationContext());
-		Button infoButton = (Button) findViewById(R.id.info);
-		Button newData = (Button) findViewById(R.id.newData);
-		Button loginButton = (Button) findViewById(R.id.login);
+		
+		infoButton = (Button) findViewById(R.id.info);
+		loginButton = (Button) findViewById(R.id.login);
+		newData = (Button) findViewById(R.id.newData);
 		username = (EditText) findViewById(R.id.username);
 		password = (EditText) findViewById(R.id.password);
 		storePass = (CheckBox) findViewById(R.id.remember);
 		
 		newData.setVisibility(8);
-
-		loginButton.setText("Inloggen");
 		
 		usr = prefs.getUsername();
 		if(usr == null)
@@ -47,17 +49,11 @@ public class Login extends Activity {
 			username.setText(usr);
 		password.setHint("uSis wachtwoord");
 		password.setTextSize(13);
-		loginButton.setOnClickListener(loginListener);
 		storePass.setChecked(prefs.getStorePass());
-
-		infoButton.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				prefs.setGoingToInfo(true);
-				Intent infoIntent = new Intent().setClass(Login.this,
-						Info.class);
-				Login.this.startActivity(infoIntent);
-			}
-		});
+		
+		loginButton.setText("Inloggen");
+		loginButton.setOnClickListener(loginListener);
+		infoButton.setOnClickListener(infoButtonListener);
 	}
 	
 	private OnClickListener loginListener = new OnClickListener() {
@@ -81,6 +77,15 @@ public class Login extends Activity {
 				}
 				toast.show();
 			}
+		}
+	};
+	
+	private OnClickListener infoButtonListener = new OnClickListener() {
+		public void onClick(View v) {
+			prefs.setGoingToInfo(true);
+			Intent infoIntent = new Intent().setClass(Login.this,
+					Info.class);
+			Login.this.startActivity(infoIntent);
 		}
 	};
 

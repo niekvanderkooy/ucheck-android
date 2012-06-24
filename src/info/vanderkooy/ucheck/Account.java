@@ -16,6 +16,9 @@ public class Account extends Activity {
 	private EditText username;
 	private EditText password;
 	private CheckBox storePass;
+	private Button infoButton;
+	private Button loginButton;
+	private Button newData;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -24,9 +27,10 @@ public class Account extends Activity {
 		setContentView(R.layout.account);
 
 		prefs = new Preferences(getApplicationContext());
-		Button infoButton = (Button) findViewById(R.id.info);
-		Button loginButton = (Button) findViewById(R.id.login);
-		Button newData = (Button) findViewById(R.id.newData);
+		
+		infoButton = (Button) findViewById(R.id.info);
+		loginButton = (Button) findViewById(R.id.login);
+		newData = (Button) findViewById(R.id.newData);
 		username = (EditText) findViewById(R.id.username);
 		password = (EditText) findViewById(R.id.password);
 		storePass = (CheckBox) findViewById(R.id.remember);
@@ -36,30 +40,10 @@ public class Account extends Activity {
 		password.setKeyListener(null);
 		username.setTextColor(Color.GRAY);
 		password.setTextColor(Color.GRAY);
-		storePass.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				prefs.setStorePass(storePass.isChecked());
-			}
-		});
-		newData.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				prefs.forceNewData();
-				Toast toast = Toast.makeText(getApplicationContext(), "Alle data zal worden vernieuwd.", 5);
-				toast.show();
-			}
-		});
+		storePass.setOnClickListener(storePassListener);
+		newData.setOnClickListener(newDataListener);
 		loginButton.setOnClickListener(logoutListener);
-
-		infoButton.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				prefs.setGoingToInfo(true);
-				Intent infoIntent = new Intent().setClass(Account.this,
-						Info.class);
-				Account.this.startActivity(infoIntent);
-			}
-		});
+		infoButton.setOnClickListener(infoButtonListener);
 	}
 	
 	@Override
@@ -69,6 +53,20 @@ public class Account extends Activity {
 		password.setText("........");
 		storePass.setChecked(prefs.getStorePass());		
 	}
+	
+	private OnClickListener storePassListener = new OnClickListener() {
+		public void onClick(View v) {
+			prefs.setStorePass(storePass.isChecked());
+		}
+	};
+	
+	private OnClickListener newDataListener = new OnClickListener() {
+		public void onClick(View v) {
+			prefs.forceNewData();
+			Toast toast = Toast.makeText(getApplicationContext(), "Alle data zal worden vernieuwd.", 5);
+			toast.show();
+		}
+	};
 
 	private OnClickListener logoutListener = new OnClickListener() {
 		public void onClick(View v) {
@@ -76,6 +74,15 @@ public class Account extends Activity {
 			Intent loginIntent = new Intent().setClass(Account.this,
 					Login.class);
 			Account.this.startActivity(loginIntent);
+		}
+	};
+	
+	private OnClickListener infoButtonListener = new OnClickListener() {
+		public void onClick(View v) {
+			prefs.setGoingToInfo(true);
+			Intent infoIntent = new Intent().setClass(Account.this,
+					Info.class);
+			Account.this.startActivity(infoIntent);
 		}
 	};
 
