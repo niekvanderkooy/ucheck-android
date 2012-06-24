@@ -12,7 +12,8 @@
         android:label="@string/app_name">
         <activity
             android:name="UcheckAndroidMain"
-            android:theme="@style/uCheckTheme" >
+            android:theme="@style/uCheckTheme"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
