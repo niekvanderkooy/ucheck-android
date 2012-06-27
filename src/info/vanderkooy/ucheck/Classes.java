@@ -51,9 +51,13 @@ public class Classes extends Activity {
 			load();
 		}
 	}
+
+    public void refreshData(View view) {
+        load();
+    }
 	
 	private void load() {
-		dialog = ProgressDialog.show(Classes.this, "", "Data wordt opgehaald.", true);
+		dialog = ProgressDialog.show(Classes.this, "", "Inschrijvingen worden opgehaald", true);
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {

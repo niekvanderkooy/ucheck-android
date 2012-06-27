@@ -7,16 +7,17 @@
     <TextView
         android:id="@+id/subject"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_weight="1"
         android:paddingBottom="8dip"
         android:paddingLeft="10dip"
-        android:paddingTop="8dip" />
+        android:paddingTop="12dip"
+        android:text="test"/>
 
     <View
-        android:layout_width="1px"
+        android:layout_width="2px"
         android:layout_height="fill_parent"
-        android:background="#30000000" />
+        android:background="#10000000" />
 
     <TextView
         android:id="@+id/grade"
@@ -24,12 +25,13 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingBottom="8dip"
-        android:paddingTop="8dip" />
+        android:paddingTop="8dip"
+        android:textStyle="bold" />
 
     <View
-        android:layout_width="1px"
+        android:layout_width="2px"
         android:layout_height="fill_parent"
-        android:background="#30000000" />
+        android:background="#10000000" />
 
     <TextView
         android:id="@+id/EC"

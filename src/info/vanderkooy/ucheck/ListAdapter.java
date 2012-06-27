@@ -45,13 +45,27 @@ public class ListAdapter extends SimpleAdapter {
 			tvs[i].setTypeface(null, Typeface.NORMAL);
 			if(entry.get("gehaald") != null)
 				tvs[i].setTextColor(Color.RED);
-		}
+            else
+                tvs[i].setTextColor(Color.BLACK);
+
+        }
+
+        tvs[1].setTypeface(null, Typeface.BOLD);
 		
 		if(position == 0 && tvs[0].getText().equals("Vak")) {
 			for(int i = 0; i < to.length; i++) {
 				tvs[i].setTypeface(null, Typeface.BOLD);
-			}
+                tvs[i].setTextColor(Color.BLACK);
+            }
 		}
+
+        if(position % 2 == 1) {
+            convertView.setBackgroundResource(R.color.light_gray);
+        }
+        else {
+            convertView.setBackgroundColor(Color.WHITE);
+
+        }
 		
 		return convertView;		
 	}

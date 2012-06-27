@@ -7,16 +7,16 @@
     <TextView
         android:id="@+id/classes"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="44dp"
         android:layout_weight="1"
         android:paddingBottom="8dip"
         android:paddingLeft="10dip"
-        android:paddingTop="8dip" />
+        android:paddingTop="12dip" />
 
     <View
-        android:layout_width="1px"
+        android:layout_width="1dp"
         android:layout_height="fill_parent"
-        android:background="#30000000" />
+        android:background="#10000000" />
 
     <TextView
         android:id="@+id/info"

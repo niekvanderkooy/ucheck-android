@@ -30,7 +30,6 @@ public class Account extends Activity {
 		
 		infoButton = (Button) findViewById(R.id.info);
 		loginButton = (Button) findViewById(R.id.login);
-		newData = (Button) findViewById(R.id.newData);
 		username = (EditText) findViewById(R.id.username);
 		password = (EditText) findViewById(R.id.password);
 		storePass = (CheckBox) findViewById(R.id.remember);
@@ -41,7 +40,7 @@ public class Account extends Activity {
 		username.setTextColor(Color.GRAY);
 		password.setTextColor(Color.GRAY);
 		storePass.setOnClickListener(storePassListener);
-		newData.setOnClickListener(newDataListener);
+//		newData.setOnClickListener(newDataListener);
 		loginButton.setOnClickListener(logoutListener);
 		infoButton.setOnClickListener(infoButtonListener);
 	}

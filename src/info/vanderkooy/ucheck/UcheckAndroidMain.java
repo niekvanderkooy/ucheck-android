@@ -33,24 +33,24 @@ public class UcheckAndroidMain extends TabActivity {
 		//TODO: Change setIndicator(getString()) to setIndicator(getString(), res.getDrawable(R.drawable.ic_tab_settings) to ad icons
 		
 		// Initialize a TabSpec for each tab and add it to the TabHost
-		spec = tabHost.newTabSpec("grades").setIndicator(getString(R.string.gradesTab))
+		spec = tabHost.newTabSpec("grades").setIndicator(getString(R.string.gradesTab), getResources().getDrawable(R.drawable.badge))
 				.setContent(intent);
 		tabHost.addTab(spec);
 
 		// Do the same for the other tabs
 		intent = new Intent().setClass(this, Classes.class);
-		spec = tabHost.newTabSpec("classes").setIndicator(getString(R.string.classesTab))
+		spec = tabHost.newTabSpec("classes").setIndicator(getString(R.string.classesTab), getResources().getDrawable(R.drawable.index_cards))
 				.setContent(intent);
 		tabHost.addTab(spec);
 		
 
 		intent = new Intent().setClass(this, Progress.class);
-		spec = tabHost.newTabSpec("progress").setIndicator(getString(R.string.progressTab))
+		spec = tabHost.newTabSpec("progress").setIndicator(getString(R.string.progressTab), getResources().getDrawable(R.drawable.line_chart))
 				.setContent(intent);
 		tabHost.addTab(spec);
 
 		intent = new Intent().setClass(this, Account.class);
-		spec = tabHost.newTabSpec("account").setIndicator(getString(R.string.accountTab))
+		spec = tabHost.newTabSpec("account").setIndicator(getString(R.string.accountTab), getResources().getDrawable(R.drawable.user))
 				.setContent(intent);
 		tabHost.addTab(spec);
 		
