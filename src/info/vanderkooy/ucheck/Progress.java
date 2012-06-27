@@ -42,7 +42,7 @@ public class Progress extends Activity {
     }
 	
 	private void load() {
-		dialog = ProgressDialog.show(Progress.this, "", "Voortgang wordt opgehaald.", true);
+		dialog = ProgressDialog.show(Progress.this, "", "Voortgang wordt opgehaald", true);
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {

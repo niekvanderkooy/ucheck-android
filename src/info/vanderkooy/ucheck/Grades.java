@@ -62,7 +62,7 @@ public class Grades extends Activity {
     }
 
 	private void load() {
-		dialog = ProgressDialog.show(Grades.this, "", "Cijfers worden opgehaald.",
+		dialog = ProgressDialog.show(Grades.this, "", "Cijfers worden opgehaald",
 				true);
 
 		Thread thread = new Thread(new Runnable() {

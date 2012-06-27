@@ -57,7 +57,7 @@ public class Classes extends Activity {
     }
 	
 	private void load() {
-		dialog = ProgressDialog.show(Classes.this, "", "Inschrijvingen worden opgehaald.", true);
+		dialog = ProgressDialog.show(Classes.this, "", "Inschrijvingen worden opgehaald", true);
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
