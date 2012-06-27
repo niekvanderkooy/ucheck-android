@@ -40,7 +40,7 @@ public class Account extends Activity {
 		username.setTextColor(Color.GRAY);
 		password.setTextColor(Color.GRAY);
 		storePass.setOnClickListener(storePassListener);
-		newData.setOnClickListener(newDataListener);
+//		newData.setOnClickListener(newDataListener);
 		loginButton.setOnClickListener(logoutListener);
 		infoButton.setOnClickListener(infoButtonListener);
 	}
