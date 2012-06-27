@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.Toast;
 
@@ -35,9 +36,13 @@ public class Progress extends Activity {
 			load();			
 		}
 	}
+
+    public void refreshData(View view) {
+        load();
+    }
 	
 	private void load() {
-		dialog = ProgressDialog.show(Progress.this, "", "Data wordt opgehaald.", true);
+		dialog = ProgressDialog.show(Progress.this, "", "Voortgang wordt opgehaald.", true);
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
