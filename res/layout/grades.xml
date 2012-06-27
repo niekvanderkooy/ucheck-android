@@ -19,16 +19,17 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@+id/newData" />
+            android:layout_toLeftOf="@+id/refresh" />
 
         <Button
-                android:id="@id/newData"
+                android:id="@id/refresh"
                 android:layout_width="100dp"
                 android:layout_height="52dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
                 android:text="Vernieuw"
                 android:width="100px"
+                android:onClick="refreshData"
                 android:layout_alignParentRight="true" >
         </Button>
 
