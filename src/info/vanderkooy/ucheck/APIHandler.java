@@ -44,13 +44,13 @@ public class APIHandler {
 	public String getProgress() {
 		String username = prefs.getUsername();
 		String key = prefs.getKey();
-		return getWebPage("https://ucheck.nl/api/voortgang.php?user=" + username + "&pass=" + key);		
+		return getWebPage("https://ucheck.nl/api/voortgang.php?user=" + URLEncoder.encode(username) + "&pass=" + key);
 	}
 	
 	public JSONObject getGrades() {
 		String username = prefs.getUsername();
 		String key = prefs.getKey();
-		String data = getWebPage("https://ucheck.nl/api/cijfers.php?user=" + username + "&pass=" + key);
+		String data = getWebPage("https://ucheck.nl/api/cijfers.php?user=" + URLEncoder.encode(username) + "&pass=" + key);
 		JSONObject obj;
 		try {
 			obj = new JSONObject(data);
@@ -64,7 +64,7 @@ public class APIHandler {
 	public JSONObject getClasses() {
 		String username = prefs.getUsername();
 		String key = prefs.getKey();
-		String data = getWebPage("https://ucheck.nl/api/inschrijvingen.php?user=" + username + "&pass=" + key);
+		String data = getWebPage("https://ucheck.nl/api/inschrijvingen.php?user=" + URLEncoder.encode(username) + "&pass=" + key);
 		JSONObject obj;
 		try {
 			obj = new JSONObject(data);
