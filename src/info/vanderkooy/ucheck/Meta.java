@@ -71,11 +71,11 @@ public class Meta {
 		studieLijst.put("SLAV", "Slavische talen cult/Ruslandk.");
 		studieLijst.put("STK", "Sterrenkunde");
 		studieLijst.put("TCIA", "T&C van Indiaans Amerika");
-		studieLijst.put("TCMA", "T&C van Mesopota & Anatoli");
+		studieLijst.put("TCMA", "T&C van Mesopota & Anatolië");
 		studieLijst.put("TAALK", "Taalkunde");
 		studieLijst.put("TW", "Taalwetenschap");
 		studieLijst.put("INDTIBET", "Talen en Cult. India en Tibet");
-		studieLijst.put("INDONES", "Talen en Culturen Indonesi");
+		studieLijst.put("INDONES", "Talen en Culturen Indonesië");
 		studieLijst.put("AFRIKA", "Talen en Culturen van Afrika");
 		studieLijst.put("TCLA", "Talen en culturen Latijns Am");
 		studieLijst.put("CHINA", "Talen en culturen van China");
@@ -89,7 +89,7 @@ public class Meta {
 		studieLijst.put("LAVA", "Vitality and ageing");
 		studieLijst.put("WYSB", "Wijsbegeerte");
 		studieLijst.put("WSK", "Wiskunde");
-		studieLijst.put("ZZOAZIE", "Zuid en Zuid-Oost Azi");
+		studieLijst.put("ZZOAZIE", "Zuid en Zuid-Oost Azië");
 		
 		return studieLijst;
 	}
