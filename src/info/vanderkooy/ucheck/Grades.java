@@ -14,7 +14,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -95,7 +94,7 @@ public class Grades extends Activity {
 					.makeText(
 							getApplicationContext(),
 							getString(R.string.loadError),
-							6);
+							Toast.LENGTH_LONG);
 			toast.show();
 		}
 		String loginerror = "uninit";
@@ -115,7 +114,7 @@ public class Grades extends Activity {
 					.makeText(
 							getApplicationContext(),
 							getString(R.string.loadError),
-							6);
+							Toast.LENGTH_LONG);
 			toast.show();
 			e.printStackTrace();
 		}

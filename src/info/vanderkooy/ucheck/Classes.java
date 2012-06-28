@@ -80,7 +80,7 @@ public class Classes extends Activity {
 	private void processData() {
 		if (data == null) {
 			Toast toast = Toast.makeText(getApplicationContext(),
-					getString(R.string.loadError), 6);
+					getString(R.string.loadError), Toast.LENGTH_LONG);
 			toast.show();
 		}
 		prefs.setLastClassesUpdate();
@@ -96,7 +96,7 @@ public class Classes extends Activity {
 			}
 		} catch (JSONException e) {
 			Toast toast = Toast.makeText(getApplicationContext(),
-					getString(R.string.loadError), 6);
+					getString(R.string.loadError), Toast.LENGTH_LONG);
 			toast.show();
 			prefs.forceNewClasses();
 			e.printStackTrace();

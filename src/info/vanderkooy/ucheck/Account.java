@@ -9,7 +9,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class Account extends Activity {
 	private Preferences prefs;
@@ -18,7 +17,6 @@ public class Account extends Activity {
 	private CheckBox storePass;
 	private Button infoButton;
 	private Button loginButton;
-	private Button newData;
 
 	/** Called when the activity is first created. */
 	@Override

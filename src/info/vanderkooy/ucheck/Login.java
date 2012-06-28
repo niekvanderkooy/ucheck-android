@@ -92,13 +92,13 @@ public class Login extends Activity {
 								if (finalReturned == 0) {
 									toast = Toast.makeText(
 											getApplicationContext(),
-											getString(R.string.userError), 3);
+											getString(R.string.userError), Toast.LENGTH_LONG);
 								} else {
 									toast = Toast
 											.makeText(
 													getApplicationContext(),
 													getString(R.string.verificationError),
-													10);
+													Toast.LENGTH_LONG);
 								}
 								toast.show();
 								dialog.hide();

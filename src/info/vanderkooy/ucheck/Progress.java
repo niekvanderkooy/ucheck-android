@@ -72,7 +72,7 @@ public class Progress extends Activity {
 			e.printStackTrace();
 		}
 	    if(progressData.equals("") || webData.equals("")) {
-	    	Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.loadError), 6);
+	    	Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.loadError), Toast.LENGTH_LONG);
 	    	toast.show();
 	    }
 	    webView.loadData(webData, "text/html", null);

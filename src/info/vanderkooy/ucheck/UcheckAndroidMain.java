@@ -1,24 +1,19 @@
 package info.vanderkooy.ucheck;
 
-import android.app.ProgressDialog;
 import android.app.TabActivity;
 import android.content.Intent;
-//import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TabHost;
 
 public class UcheckAndroidMain extends TabActivity {
-	private APIHandler handler;
 	private Preferences prefs;
 	private TabHost tabHost;
-	private ProgressDialog dialog;
 	private int lastTab;
 	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    handler = new APIHandler(getApplicationContext());
 	    prefs = new Preferences(getApplicationContext());
 	    //Resources res = getResources();
 		tabHost = getTabHost(); // The activity TabHost
