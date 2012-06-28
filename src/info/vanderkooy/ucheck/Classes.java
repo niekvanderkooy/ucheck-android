@@ -13,9 +13,11 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -28,6 +30,7 @@ public class Classes extends Activity {
 	private JSONArray enrollments;
 	private Spinner spinner;
 	private ProgressDialog dialog;
+	private Button refreshButton;
 
 	private Map<String, String> studieLijst = Meta.getStudieLijst();
 
@@ -37,8 +40,11 @@ public class Classes extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.classes);
 		spinner = (Spinner) findViewById(R.id.spinner);
+		refreshButton = (Button) findViewById(R.id.refresh);
 		handler = new APIHandler(getApplicationContext());
 		prefs = new Preferences(getApplicationContext());
+		
+		refreshButton.setOnClickListener(refreshListener);
 
 		prefs.forceNewClasses();
 	}
@@ -49,10 +55,6 @@ public class Classes extends Activity {
 		if (prefs.classesNeedUpdate()) {
 			load();
 		}
-	}
-
-	public void refreshData(View view) {
-		load();
 	}
 
 	private void load() {
@@ -184,4 +186,10 @@ public class Classes extends Activity {
 			// Do nothing.
 		}
 	}
+	
+	private OnClickListener refreshListener = new OnClickListener() {
+		public void onClick(View v) {
+			load();
+		}
+	};
 }

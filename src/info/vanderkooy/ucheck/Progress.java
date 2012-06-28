@@ -7,7 +7,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class Progress extends Activity {
@@ -16,6 +18,7 @@ public class Progress extends Activity {
 	private Preferences prefs;
 	private ProgressDialog dialog;
 	private String progressData;
+	private Button refreshButton;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -23,8 +26,11 @@ public class Progress extends Activity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.progress);
 	    webView = (WebView) findViewById(R.id.webView);
+	    refreshButton = (Button) findViewById(R.id.refresh);
 	    handler = new APIHandler(getApplicationContext());
 	    prefs = new Preferences(getApplicationContext());
+	    
+	    refreshButton.setOnClickListener(refreshListener);
 
 	    prefs.forceNewProgress();
 	}
@@ -36,10 +42,6 @@ public class Progress extends Activity {
 			load();			
 		}
 	}
-
-    public void refreshData(View view) {
-        load();
-    }
 	
 	private void load() {
 		dialog = ProgressDialog.show(Progress.this, "", getString(R.string.getProgress), true);
@@ -78,5 +80,11 @@ public class Progress extends Activity {
 	    webView.loadData(webData, "text/html", null);
 	    prefs.setLastProgressUpdate();		
 	}
+	
+	private OnClickListener refreshListener = new OnClickListener() {
+		public void onClick(View v) {
+			load();
+		}
+	};
 
 }

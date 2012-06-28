@@ -29,7 +29,6 @@
                 android:layout_marginRight="5dp"
                 android:text="@+string/refresh"
                 android:width="100dp"
-                android:onClick="refreshData"
                 android:layout_alignParentRight="true" >
         </Button>
 

@@ -15,9 +15,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -30,6 +32,7 @@ public class Grades extends Activity {
 	private List<String> studies;
 	private Spinner spinner;
 	private ProgressDialog dialog;
+	private Button refreshButton;
 
 	private Map<String, String> studieLijst = Meta.getStudieLijst();
 
@@ -42,9 +45,12 @@ public class Grades extends Activity {
 		setContentView(R.layout.grades);
 
 		spinner = (Spinner) findViewById(R.id.spinner);
+		refreshButton = (Button) findViewById(R.id.refresh);
 		handler = new APIHandler(getApplicationContext());
 		prefs = new Preferences(getApplicationContext());
 		studies = new ArrayList<String>();
+		
+		refreshButton.setOnClickListener(refreshListener);
 
 		prefs.forceNewGrades();
 	}
@@ -56,10 +62,6 @@ public class Grades extends Activity {
 			load();
 		}
 	}
-
-    public void refreshData(View view) {
-        load();
-    }
 
 	private void load() {
 		dialog = ProgressDialog.show(Grades.this, "", getString(R.string.getGrades),
@@ -224,4 +226,10 @@ public class Grades extends Activity {
 			// Do nothing.
 		}
 	}
+	
+	private OnClickListener refreshListener = new OnClickListener() {
+		public void onClick(View v) {
+			load();
+		}
+	};
 }
