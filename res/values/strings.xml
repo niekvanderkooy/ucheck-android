@@ -13,6 +13,7 @@
 	<string name="remember">Onthoud wachtwoord</string>
 	<string name="logout">Uitloggen</string>
 	<string name="login">Inloggen</string>
+	<string name="login_action">Inloggen&#8230;</string>
 	<string name="studentNumberHint">Uitloggen</string>
 	<string name="passHint">uSis wachtwoord</string>
 	<string name="getGrades">Cijfers worden opgehaald</string>
