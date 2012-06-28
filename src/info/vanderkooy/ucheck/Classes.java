@@ -95,7 +95,7 @@ public class Classes extends Activity {
 				updateSpinner();
 			} else {
 				spinner.setVisibility(8);
-				makeList("Alle");
+				makeList("Alle vakken");
 			}
 		} catch (JSONException e) {
 			Toast toast = Toast.makeText(getApplicationContext(), 
