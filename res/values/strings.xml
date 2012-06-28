@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="hello">Hello World!</string>
     <string name="app_name">uCheck</string>
-    
     <string name="gradesTab">Cijfers</string>
     <string name="classesTab">Inschrijvingen</string>
     <string name="accountTab">Account</string>
