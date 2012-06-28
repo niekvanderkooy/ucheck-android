@@ -28,14 +28,14 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
                 android:text="@+string/refresh"
-                android:width="100px"
+                android:width="100dp"
                 android:layout_alignParentRight="true"
                 android:onClick="refreshData">
         </Button>
 
         <View
                 android:layout_width="fill_parent"
-                android:layout_height="2px"
+                android:layout_height="2dp"
                 android:layout_marginTop="60dp"
                 android:background="#cdcdcd" />
 
@@ -50,7 +50,7 @@
             android:clickable="false"
             android:longClickable="false"
             android:fadingEdge="none"
-            android:dividerHeight="2px"
+            android:dividerHeight="2dp"
             android:divider="#e0e0e0">
     </ListView>
 

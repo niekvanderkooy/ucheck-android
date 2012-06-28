@@ -18,7 +18,7 @@
             android:layout_marginRight="2dp"
             android:text="@+string/refresh"
             android:textSize="13dp"
-            android:width="100px"
+            android:width="100dp"
             android:onClick="refreshData"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true">
