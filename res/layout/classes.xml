@@ -5,52 +5,50 @@
     android:background="#f4f4f4"
     android:orientation="vertical" >
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="fill_parent"
-                    android:layout_height="61dp"
-                    android:background="#e3e3e3" >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="61dp"
+        android:background="#e3e3e3" >
 
         <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="fill_parent"
-                android:layout_height="52dp"
-                android:layout_marginBottom="0dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@+id/refresh" />
+            android:id="@+id/spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="52dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/refresh" />
 
         <Button
-                android:id="@id/refresh"
-                android:layout_width="100dp"
-                android:layout_height="52dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="5dp"
-                android:text="@+string/refresh"
-                android:width="100dp"
-                android:layout_alignParentRight="true" >
+            android:id="@id/refresh"
+            android:layout_width="100dp"
+            android:layout_height="52dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:text="@+string/refresh"
+            android:width="100dp" >
         </Button>
 
         <View
-                android:layout_width="fill_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="60dp"
-                android:background="#cdcdcd" />
-
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="60dp"
+            android:background="#cdcdcd" />
     </RelativeLayout>
 
-
     <ListView
-            android:id="@+id/list"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:cacheColorHint="#00000000"
-            android:clickable="false"
-            android:longClickable="false"
-            android:fadingEdge="none"
-            android:dividerHeight="2dp"
-            android:divider="#e0e0e0">
+        android:id="@+id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="#00000000"
+        android:clickable="false"
+        android:divider="#e0e0e0"
+        android:dividerHeight="2dp"
+        android:fadingEdge="none"
+        android:longClickable="false" >
     </ListView>
 
 </LinearLayout>

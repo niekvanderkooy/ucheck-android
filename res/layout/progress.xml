@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="#f4f4f4" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f4f4f4" >
 
     <WebView
         android:id="@+id/webView"
@@ -11,16 +10,16 @@
         android:layout_height="wrap_content" />
 
     <Button
-            android:id="@id/refresh"
-            android:layout_width="80dp"
-            android:layout_height="44dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="2dp"
-            android:text="@+string/refresh"
-            android:textSize="13dp"
-            android:width="100dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true">
+        android:id="@id/refresh"
+        android:layout_width="80dp"
+        android:layout_height="44dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="5dp"
+        android:text="@+string/refresh"
+        android:textSize="13dp"
+        android:width="100dp" >
     </Button>
 
 </RelativeLayout>
