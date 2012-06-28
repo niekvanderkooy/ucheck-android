@@ -21,7 +21,7 @@ public class Login extends Activity {
 	private String usr;
 	private Button infoButton;
 	private Button loginButton;
-	private Button newData;
+//	private Button newData;
 	
 
 	/** Called when the activity is first created. */
@@ -39,7 +39,7 @@ public class Login extends Activity {
 		password = (EditText) findViewById(R.id.password);
 		storePass = (CheckBox) findViewById(R.id.remember);
 		
-		newData.setVisibility(8);
+//		newData.setVisibility(8);
 		
 		usr = prefs.getUsername();
 		if(usr == null)
