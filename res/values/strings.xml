@@ -11,4 +11,22 @@
     <string name="username">Studentnummer</string>
     <string name="password">Wachtwoord</string>
 	<string name="remember">Onthoud wachtwoord</string>
+	<string name="logout">Uitloggen</string>
+	<string name="login">Inloggen</string>
+	<string name="studentNumberHint">Uitloggen</string>
+	<string name="passHint">uSis wachtwoord</string>
+	<string name="getGrades">Cijfers worden opgehaald</string>
+	<string name="allGrades">Alle Cijfers</string>
+	<string name="grade">Cijfer</string>
+	<string name="EC">Cijfer</string>
+	<string name="getClasses">Inschrijvingen worden opgehaald</string>
+	<string name="allClasses">Alle Vakken</string>
+	<string name="subject">Vak</string>
+	<string name="info">Info</string>
+	<string name="refresh">Vernieuw</string>
+	<string name="getProgress">Voortgang wordt opgehaald</string>
+	<string name="loadError">Er is iets mis gegaan bij het ophalen van data. Probeer het later nog een keer.</string>
+	<string name="userError">Ongeldige gebruikersnaam en/of wachtwoord</string>
+	<string name="verificationError">Er is iets mis gegaan bij het ophalen van data. Probeer het later nog een keer.</string>
+	<string name="about">Ontwikkeld door\nNiek van der Kooy\n\n met de hulp van de uCheck API door\nHans Pinckaers\n\n\nDeze app is open-source!\nHelp mee met ontwikkeling via:\ngithub.com/niekvanderkooy/ucheck-android</string>
 </resources>

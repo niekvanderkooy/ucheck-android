@@ -42,7 +42,7 @@ public class Progress extends Activity {
     }
 	
 	private void load() {
-		dialog = ProgressDialog.show(Progress.this, "", "Voortgang wordt opgehaald", true);
+		dialog = ProgressDialog.show(Progress.this, "", getString(R.string.getProgress), true);
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
@@ -72,7 +72,7 @@ public class Progress extends Activity {
 			e.printStackTrace();
 		}
 	    if(progressData.equals("") || webData.equals("")) {
-	    	Toast toast = Toast.makeText(getApplicationContext(), "Er is iets mis gegaan bij het ophalen van voortgangsdata. Probeer het later nog een keer.", 6);
+	    	Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.loadError), 6);
 	    	toast.show();
 	    }
 	    webView.loadData(webData, "text/html", null);

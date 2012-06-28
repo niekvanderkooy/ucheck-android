@@ -31,7 +31,6 @@ public class Classes extends Activity {
 
 	private Map<String, String> studieLijst = Meta.getStudieLijst();
 
-
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -52,12 +51,13 @@ public class Classes extends Activity {
 		}
 	}
 
-    public void refreshData(View view) {
-        load();
-    }
-	
+	public void refreshData(View view) {
+		load();
+	}
+
 	private void load() {
-		dialog = ProgressDialog.show(Classes.this, "", "Inschrijvingen worden opgehaald", true);
+		dialog = ProgressDialog.show(Classes.this, "",
+				getString(R.string.getClasses), true);
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
@@ -79,11 +79,8 @@ public class Classes extends Activity {
 
 	private void processData() {
 		if (data == null) {
-			Toast toast = Toast
-					.makeText(
-							getApplicationContext(),
-							"Er is iets mis gegaan bij het ophalen van cijferdata. Probeer het later nog een keer.",
-							6);
+			Toast toast = Toast.makeText(getApplicationContext(),
+					getString(R.string.loadError), 6);
 			toast.show();
 		}
 		prefs.setLastClassesUpdate();
@@ -95,11 +92,11 @@ public class Classes extends Activity {
 				updateSpinner();
 			} else {
 				spinner.setVisibility(8);
-				makeList("Alle vakken");
+				makeList(getString(R.string.allClasses));
 			}
 		} catch (JSONException e) {
-			Toast toast = Toast.makeText(getApplicationContext(), 
-					"Er is iets mis gegaan bij het ophalen van cijferdata. Probeer het later nog een keer.", 6);
+			Toast toast = Toast.makeText(getApplicationContext(),
+					getString(R.string.loadError), 6);
 			toast.show();
 			prefs.forceNewClasses();
 			e.printStackTrace();
@@ -108,7 +105,7 @@ public class Classes extends Activity {
 
 	private void updateSpinner() {
 		ArrayList<String> spinnerArray = new ArrayList<String>();
-		spinnerArray.add("Alle vakken");
+		spinnerArray.add(getString(R.string.allClasses));
 		for (int i = 0; i < studies.length(); i++) {
 			try {
 				if (studieLijst.get((String) studies.get(i)) != null)
@@ -141,28 +138,30 @@ public class Classes extends Activity {
 	public void makeList(String subject) {
 		ListView list = (ListView) findViewById(R.id.list);
 		String studie = "";
-		 
+
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
 		HashMap<String, String> map;
 		map = new HashMap<String, String>();
-		map.put("classes", "Vak");
-		map.put("info", "Info");
+		map.put("classes", getString(R.string.subject));
+		map.put("info", getString(R.string.info));
 		mylist.add(map);
 		for (int i = 0; i < enrollments.length(); i++) {
 			map = new HashMap<String, String>();
 			try {
-				map.put("classes", (String) enrollments.getJSONObject(i).get("vak"));
+				map.put("classes",
+						(String) enrollments.getJSONObject(i).get("vak"));
 				map.put("info", (String) enrollments.getJSONObject(i).get("id"));
 				studie = (String) enrollments.getJSONObject(i).get("studie");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			if(subject.equals("Alle vakken") || subject.equals(studie)) {
+			if (subject.equals(getString(R.string.allClasses)) || subject.equals(studie)) {
 				mylist.add(map);
 			}
 		}
-		ListAdapter mSchedule = new ListAdapter(this, mylist, R.layout.rowclasses,
-		            new String[] {"classes", "info"}, new int[] {R.id.classes, R.id.info});
+		ListAdapter mSchedule = new ListAdapter(this, mylist,
+				R.layout.rowclasses, new String[] { "classes", "info" },
+				new int[] { R.id.classes, R.id.info });
 		list.setAdapter(mSchedule);
 		list.setSelector(android.R.color.transparent);
 

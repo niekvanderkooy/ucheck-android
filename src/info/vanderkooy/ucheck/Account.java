@@ -34,13 +34,12 @@ public class Account extends Activity {
 		password = (EditText) findViewById(R.id.password);
 		storePass = (CheckBox) findViewById(R.id.remember);
 
-		loginButton.setText("Uitloggen");
+		loginButton.setText(getString(R.string.logout));
 		username.setKeyListener(null);
 		password.setKeyListener(null);
 		username.setTextColor(Color.GRAY);
 		password.setTextColor(Color.GRAY);
 		storePass.setOnClickListener(storePassListener);
-//		newData.setOnClickListener(newDataListener);
 		loginButton.setOnClickListener(logoutListener);
 		infoButton.setOnClickListener(infoButtonListener);
 	}
@@ -56,14 +55,6 @@ public class Account extends Activity {
 	private OnClickListener storePassListener = new OnClickListener() {
 		public void onClick(View v) {
 			prefs.setStorePass(storePass.isChecked());
-		}
-	};
-	
-	private OnClickListener newDataListener = new OnClickListener() {
-		public void onClick(View v) {
-			prefs.forceNewData();
-			Toast toast = Toast.makeText(getApplicationContext(), "Alle data zal worden vernieuwd.", 5);
-			toast.show();
 		}
 	};
 

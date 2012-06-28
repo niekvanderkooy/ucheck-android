@@ -43,14 +43,14 @@ public class Login extends Activity {
 		
 		usr = prefs.getUsername();
 		if(usr == null)
-			username.setHint("Studentnummer");
+			username.setHint(getString(R.string.studentNumberHint));
 		else
 			username.setText(usr);
-		password.setHint("uSis wachtwoord");
+		password.setHint(getString(R.string.passHint));
 		password.setTextSize(13);
 		storePass.setChecked(prefs.getStorePass());
 		
-		loginButton.setText("Inloggen");
+		loginButton.setText(getString(R.string.logout));
 		loginButton.setOnClickListener(loginListener);
 		infoButton.setOnClickListener(infoButtonListener);
 	}
@@ -70,9 +70,9 @@ public class Login extends Activity {
 			} else {
 				Toast toast;
 				if(returned == 0) {
-					toast = Toast.makeText(getApplicationContext(), "Ongeldige gebruikersnaam en/of wachtwoord", 3);
+					toast = Toast.makeText(getApplicationContext(), getString(R.string.userError), 3);
 				} else {
-					toast = Toast.makeText(getApplicationContext(), "Er is een fout opgetreden in het account verificatie proces. Mogelijk is de server down, of heb je geen internetverbinding.", 10);
+					toast = Toast.makeText(getApplicationContext(), getString(R.string.verificationError), 10);
 				}
 				toast.show();
 			}

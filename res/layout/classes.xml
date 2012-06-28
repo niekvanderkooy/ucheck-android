@@ -27,7 +27,7 @@
                 android:layout_height="52dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="5dp"
-                android:text="Vernieuw"
+                android:text="@+string/refresh"
                 android:width="100px"
                 android:layout_alignParentRight="true"
                 android:onClick="refreshData">

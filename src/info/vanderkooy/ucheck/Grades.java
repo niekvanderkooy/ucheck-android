@@ -63,7 +63,7 @@ public class Grades extends Activity {
     }
 
 	private void load() {
-		dialog = ProgressDialog.show(Grades.this, "", "Cijfers worden opgehaald",
+		dialog = ProgressDialog.show(Grades.this, "", getString(R.string.getGrades),
 				true);
 
 		Thread thread = new Thread(new Runnable() {
@@ -94,7 +94,7 @@ public class Grades extends Activity {
 			Toast toast = Toast
 					.makeText(
 							getApplicationContext(),
-							"Er is iets mis gegaan bij het ophalen van cijferdata. Probeer het later nog een keer.",
+							getString(R.string.loadError),
 							6);
 			toast.show();
 		}
@@ -114,7 +114,7 @@ public class Grades extends Activity {
 			Toast toast = Toast
 					.makeText(
 							getApplicationContext(),
-							"Er is iets mis gegaan bij het ophalen van cijferdata. Probeer het later nog een keer.",
+							getString(R.string.loadError),
 							6);
 			toast.show();
 			e.printStackTrace();
@@ -139,15 +139,14 @@ public class Grades extends Activity {
 			updateSpinner();
 		} else {
 			spinner.setVisibility(8);
-			Log.v("uCheck", "makeList");
-			makeList("Alle cijfers");
+			makeList(getString(R.string.allGrades));
 		}
 		return 0;
 	}
 
 	private void updateSpinner() {
 		ArrayList<String> spinnerArray = new ArrayList<String>();
-		spinnerArray.add("Alle cijfers");
+		spinnerArray.add(getString(R.string.allGrades));
 		for (int i = 0; i < studies.size(); i++) {
 			if (studieLijst.get(studies.get(i)) != null)
 				spinnerArray.add(studieLijst.get(studies.get(i)));
@@ -179,9 +178,9 @@ public class Grades extends Activity {
 		ArrayList<HashMap<String, String>> mylist = new ArrayList<HashMap<String, String>>();
 		HashMap<String, String> map;
 		map = new HashMap<String, String>();
-		map.put("subject", "Vak");
-		map.put("grade", "Cijfer");
-		map.put("EC", "EC");
+		map.put("subject", getString(R.string.subject));
+		map.put("grade", getString(R.string.grade));
+		map.put("EC", getString(R.string.EC));
 		mylist.add(map);
 		for (int i = 0; i < subjects.length(); i++) {
 			map = new HashMap<String, String>();
@@ -197,11 +196,10 @@ public class Grades extends Activity {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			if (subject.equals("Alle cijfers") || subject.equals(studie)) {
+			if (subject.equals(getString(R.string.allGrades)) || subject.equals(studie)) {
 				mylist.add(map);
 			}
 		}
-		Log.v("uCheck", "list");
 		ListAdapter mSchedule = new ListAdapter(this, mylist,
 				R.layout.rowgrades, new String[] { "subject", "grade", "EC" },
 				new int[] { R.id.subject, R.id.grade, R.id.EC });
