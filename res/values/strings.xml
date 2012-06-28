@@ -16,9 +16,9 @@
 	<string name="studentNumberHint">Uitloggen</string>
 	<string name="passHint">uSis wachtwoord</string>
 	<string name="getGrades">Cijfers worden opgehaald</string>
-	<string name="allGrades">Alle Cijfers</string>
+	<string name="allGrades">Alle cijfers</string>
 	<string name="grade">Cijfer</string>
-	<string name="EC">Cijfer</string>
+	<string name="EC">EC</string>
 	<string name="getClasses">Inschrijvingen worden opgehaald</string>
 	<string name="allClasses">Alle Vakken</string>
 	<string name="subject">Vak</string>

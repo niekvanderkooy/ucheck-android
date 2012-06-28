@@ -50,7 +50,7 @@ public class Login extends Activity {
 		password.setTextSize(13);
 		storePass.setChecked(prefs.getStorePass());
 		
-		loginButton.setText(getString(R.string.logout));
+		loginButton.setText(getString(R.string.login));
 		loginButton.setOnClickListener(loginListener);
 		infoButton.setOnClickListener(infoButtonListener);
 	}
