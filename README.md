@@ -25,7 +25,10 @@ All contributors are listed below:
 
 Changelog
 --------------
-v1.0.0 (Current version):
+v1.0.1 (Current version):
+* When not logged in (and at the login screen), pressing the back button now shuts down the app.
+
+v1.0.0:
 Initial release, with support for:
 * Viewing obtained grades, and their value in EC
 * Viewing currently enrolled classes
