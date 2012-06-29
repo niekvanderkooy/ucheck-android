@@ -16,12 +16,29 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.widget.Toast;
 
 public class APIHandler {
 	private Preferences prefs;
+	private Context ctx;
 
 	public APIHandler(Context ctx) {
+		this.ctx = ctx;
 		prefs = new Preferences(ctx);
+	}
+	
+	public boolean isNetworkAvailable() {
+	    ConnectivityManager connectivityManager 
+	          = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+	    return activeNetworkInfo != null;
+	}
+	
+	public void noNetworkToast() {
+		Toast toast = Toast.makeText(ctx, R.string.noNetwork, Toast.LENGTH_LONG);
+		toast.show();
 	}
 
 	public int getKey(String username, String password) {
@@ -40,7 +57,7 @@ public class APIHandler {
 			return 0;
 		}
 	}
-	
+
 	public String getProgress() {
 		String username = prefs.getUsername();
 		String key = prefs.getKey();

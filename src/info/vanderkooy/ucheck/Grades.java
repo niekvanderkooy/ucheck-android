@@ -69,22 +69,35 @@ public class Grades extends Activity {
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
-				data = handler.getGrades();
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						int success = processData();
-						if (dialog.isShowing()) {
-							dialog.hide();
-							dialog.dismiss();
+				if(handler.isNetworkAvailable()) {
+					data = handler.getGrades();
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							int success = processData();
+							if (dialog.isShowing()) {
+								dialog.hide();
+								dialog.dismiss();
+							}
+							if (success == -1 && !prefs.getKey().equals("")) {
+								Intent loginIntent = new Intent().setClass(
+										Grades.this, Login.class);
+								Grades.this.startActivity(loginIntent);
+							}
 						}
-						if (success == -1 && !prefs.getKey().equals("")) {
-							Intent loginIntent = new Intent().setClass(
-									Grades.this, Login.class);
-							Grades.this.startActivity(loginIntent);
+					});
+				} else {
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							if (dialog.isShowing()) {
+								dialog.hide();
+								dialog.dismiss();
+							}
+							handler.noNetworkToast();
 						}
-					}
-				});
+					});
+				}
 			}
 		});
 		thread.start();
@@ -98,51 +111,53 @@ public class Grades extends Activity {
 							getString(R.string.loadError),
 							Toast.LENGTH_LONG);
 			toast.show();
-		}
-		String loginerror = "uninit";
-		try {
-			loginerror = data.getString("error");
-		} catch (JSONException e1) {
-			// No error, so password was correct
-		}
-		if (loginerror.equals("loginerror")) {
-			return -1;
-		}
-		prefs.setLastGradesUpdate();
-		try {
-			subjects = data.getJSONArray("vakken");
-		} catch (JSONException e) {
-			Toast toast = Toast
-					.makeText(
-							getApplicationContext(),
-							getString(R.string.loadError),
-							Toast.LENGTH_LONG);
-			toast.show();
-			e.printStackTrace();
-		}
-		numberOfStudies = 0;
-		studies.clear();
-		for (int i = 0; i < subjects.length(); i++) {
-			String vak = "";
+			return 0;
+		} else {
+			String loginerror = "uninit";
 			try {
-				vak = (String) subjects.getJSONObject(i).get("studie");
+				loginerror = data.getString("error");
+			} catch (JSONException e1) {
+				// No error, so password was correct
+			}
+			if (loginerror.equals("loginerror")) {
+				return -1;
+			}
+			prefs.setLastGradesUpdate();
+			try {
+				subjects = data.getJSONArray("vakken");
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
+				Toast toast = Toast
+						.makeText(
+								getApplicationContext(),
+								getString(R.string.loadError),
+								Toast.LENGTH_LONG);
+				toast.show();
 				e.printStackTrace();
 			}
-			if (!studies.contains(vak) && !vak.equals("")) {
-				studies.add(vak);
-				numberOfStudies++;
+			numberOfStudies = 0;
+			studies.clear();
+			for (int i = 0; i < subjects.length(); i++) {
+				String vak = "";
+				try {
+					vak = (String) subjects.getJSONObject(i).get("studie");
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (!studies.contains(vak) && !vak.equals("")) {
+					studies.add(vak);
+					numberOfStudies++;
+				}
 			}
+			if (numberOfStudies > 1) {
+				spinner.setVisibility(0);
+				updateSpinner();
+			} else {
+				spinner.setVisibility(8);
+				makeList(getString(R.string.allGrades));
+			}
+			return 0;
 		}
-		if (numberOfStudies > 1) {
-			spinner.setVisibility(0);
-			updateSpinner();
-		} else {
-			spinner.setVisibility(8);
-			makeList(getString(R.string.allGrades));
-		}
-		return 0;
 	}
 
 	private void updateSpinner() {

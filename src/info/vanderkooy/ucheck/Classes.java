@@ -63,17 +63,30 @@ public class Classes extends Activity {
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
-				data = handler.getClasses();
-				runOnUiThread(new Runnable() {
-					@Override
-					public void run() {
-						processData();
-						if (dialog.isShowing()) {
-							dialog.hide();
-							dialog.dismiss();
+				if(handler.isNetworkAvailable()) {
+					data = handler.getClasses();
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							processData();
+							if (dialog.isShowing()) {
+								dialog.hide();
+								dialog.dismiss();
+							}
 						}
-					}
-				});
+					});
+				} else {
+					runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							if (dialog.isShowing()) {
+								dialog.hide();
+								dialog.dismiss();
+							}
+							handler.noNetworkToast();
+						}
+					});
+				}
 			}
 		});
 		thread.start();
@@ -84,24 +97,25 @@ public class Classes extends Activity {
 			Toast toast = Toast.makeText(getApplicationContext(),
 					getString(R.string.loadError), Toast.LENGTH_LONG);
 			toast.show();
-		}
-		prefs.setLastClassesUpdate();
-		try {
-			studies = data.getJSONArray("studies");
-			enrollments = data.getJSONArray("inschrijvingen");
-			if (studies.length() > 1) {
-				spinner.setVisibility(0);
-				updateSpinner();
-			} else {
-				spinner.setVisibility(8);
-				makeList(getString(R.string.allClasses));
+		} else {
+			prefs.setLastClassesUpdate();
+			try {
+				studies = data.getJSONArray("studies");
+				enrollments = data.getJSONArray("inschrijvingen");
+				if (studies.length() > 1) {
+					spinner.setVisibility(0);
+					updateSpinner();
+				} else {
+					spinner.setVisibility(8);
+					makeList(getString(R.string.allClasses));
+				}
+			} catch (JSONException e) {
+				Toast toast = Toast.makeText(getApplicationContext(),
+						getString(R.string.loadError), Toast.LENGTH_LONG);
+				toast.show();
+				prefs.forceNewClasses();
+				e.printStackTrace();
 			}
-		} catch (JSONException e) {
-			Toast toast = Toast.makeText(getApplicationContext(),
-					getString(R.string.loadError), Toast.LENGTH_LONG);
-			toast.show();
-			prefs.forceNewClasses();
-			e.printStackTrace();
 		}
 	}
 

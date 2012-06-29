@@ -52,10 +52,23 @@ public class Progress extends Activity {
 				runOnUiThread(new Runnable() {
 					@Override
 					public void run() {
-						processData();
-						if (dialog.isShowing()) {
-							dialog.hide();
-							dialog.dismiss();
+						if(handler.isNetworkAvailable()) {
+							processData();
+							if (dialog.isShowing()) {
+								dialog.hide();
+								dialog.dismiss();
+							}
+						} else {
+							runOnUiThread(new Runnable() {
+								@Override
+								public void run() {
+									if (dialog.isShowing()) {
+										dialog.hide();
+										dialog.dismiss();
+									}
+									handler.noNetworkToast();
+								}
+							});
 						}
 					}
 				});
@@ -76,9 +89,10 @@ public class Progress extends Activity {
 	    if(progressData.equals("") || webData.equals("")) {
 	    	Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.loadError), Toast.LENGTH_LONG);
 	    	toast.show();
+	    } else {
+		    webView.loadData(webData, "text/html", null);
+		    prefs.setLastProgressUpdate();
 	    }
-	    webView.loadData(webData, "text/html", null);
-	    prefs.setLastProgressUpdate();		
 	}
 	
 	private OnClickListener refreshListener = new OnClickListener() {

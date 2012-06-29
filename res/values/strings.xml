@@ -26,5 +26,6 @@
 	<string name="loadError">Er is iets mis gegaan bij het ophalen van data. Probeer het later nog een keer.</string>
 	<string name="userError">Ongeldige gebruikersnaam en/of wachtwoord</string>
 	<string name="verificationError">Er is iets mis gegaan bij het ophalen van data. Probeer het later nog een keer.</string>
+	<string name="noNetwork">Er kon geen actieve internetverbinding worden gevonden. Probeer het later nog een keer.</string>
 	<string name="about">Ontwikkeld door\nNiek van der Kooy\n\n met de hulp van de uCheck API door\nHans Pinckaers\n\n\nDeze app is open-source!\nHelp mee met ontwikkeling via:\ngithub.com/niekvanderkooy/ucheck-android</string>
 </resources>

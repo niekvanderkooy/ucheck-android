@@ -70,42 +70,55 @@ public class Login extends Activity {
 			final String finalUsernameString = usernameString;
 			Thread thread = new Thread(new Runnable() {
 				public void run() {
-					int returned = 0;
-					final boolean success = (finalUsernameString.length() < 7 || finalUsernameString
-							.length() > 9) ? false : ((returned = handler
-							.getKey(finalUsernameString, password.getText()
-									.toString())) == 1 ? true : false);
-					final int finalReturned = returned;
-
-					runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							if (success) {
-								prefs.setStorePass(storePass.isChecked());
-								if(!usr.equals(finalUsernameString))
-									prefs.forceNewData();
-								dialog.hide();
-								dialog.dismiss();
-								finish();
-							} else {
-								Toast toast;
-								if (finalReturned == 0) {
-									toast = Toast.makeText(
-											getApplicationContext(),
-											getString(R.string.userError), Toast.LENGTH_LONG);
+					if(handler.isNetworkAvailable()) {
+						int returned = 0;
+						final boolean success = (finalUsernameString.length() < 7 || finalUsernameString
+								.length() > 9) ? false : ((returned = handler
+								.getKey(finalUsernameString, password.getText()
+										.toString())) == 1 ? true : false);
+						final int finalReturned = returned;
+	
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (success) {
+									prefs.setStorePass(storePass.isChecked());
+									if(!usr.equals(finalUsernameString))
+										prefs.forceNewData();
+									dialog.hide();
+									dialog.dismiss();
+									finish();
 								} else {
-									toast = Toast
-											.makeText(
-													getApplicationContext(),
-													getString(R.string.verificationError),
-													Toast.LENGTH_LONG);
+									Toast toast;
+									if (finalReturned == 0) {
+										toast = Toast.makeText(
+												getApplicationContext(),
+												getString(R.string.userError), Toast.LENGTH_LONG);
+									} else {
+										toast = Toast
+												.makeText(
+														getApplicationContext(),
+														getString(R.string.verificationError),
+														Toast.LENGTH_LONG);
+									}
+									toast.show();
+									dialog.hide();
+									dialog.dismiss();
 								}
-								toast.show();
-								dialog.hide();
-								dialog.dismiss();
 							}
-						}
-					});
+						});
+					} else {
+						runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								if (dialog.isShowing()) {
+									dialog.hide();
+									dialog.dismiss();
+								}
+								handler.noNetworkToast();
+							}
+						});
+					}
 				}
 			});
 			thread.start();
