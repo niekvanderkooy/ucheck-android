@@ -1,4 +1,32 @@
-ucheck-android
+uCheck for Android
 ==============
+This application aims to provide an Android client for the [uCheck](http://ucheck.nl/), a service which aims to replace the overly complex uSis service provided by Leiden University.
 
-Android application for ucheck by Hans Pinkaers
+License
+--------------
+Copyright (c) 2012 by Niek van der Kooy
+
+This work is licensed under the Creative Commons 
+Attribution-NonCommercial-ShareAlike 3.0 Unported License. 
+To view a copy of this license, visit 
+http://creativecommons.org/licenses/by-nc-sa/3.0/ 
+
+In addition to the terms stated in this license, the author asks you not to publish the compiled application to Google Play or other Android application distribution services,
+but instead to refer people to this project's [GitHub page](https://github.com/niekvanderkooy/ucheck-android/)
+
+Contribution to this project however are encouraged, and new features submitted by pull-request on GitHub are likely to be included in subsequent releases.
+
+Accreditation
+--------------
+This application was developed by Niek van der Kooy, using the uSis API developed by [Hans Pinckaers](https://github.com/HansPinckaers/), which is publically available through the [uCheck PHP backend](https://github.com/HansPinckaers/ucheck-php)
+
+All contributors are listed below:
+* [Hans Pinckaers](https://github.com/HansPinckaers/)
+
+Changelog
+--------------
+v1.0.0 (Current version):
+Initial release, with support for:
+* Viewing obtained grades, and their value in EC
+* Viewing currently enrolled classes
+* Viewing a progress chart
