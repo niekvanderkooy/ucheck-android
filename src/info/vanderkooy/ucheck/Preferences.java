@@ -60,6 +60,20 @@ public class Preferences {
 		return editor;
 	}
 	
+	public boolean setKillApp() {
+		editor.putBoolean("killapp", true);
+		return editor.commit();
+	}
+	
+	public boolean getKillApp() {
+		return pref.getBoolean("killapp", false);
+	}
+	
+	public boolean clearKillApp() {
+		editor.remove("killapp");
+		return editor.commit();
+	}
+	
 	/***************************************************************
 	 * What follow is really ugly code to keep track
 	 * of when a particular tab was last updated,

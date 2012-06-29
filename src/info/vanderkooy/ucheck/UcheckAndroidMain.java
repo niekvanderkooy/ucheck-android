@@ -15,6 +15,10 @@ public class UcheckAndroidMain extends TabActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    prefs = new Preferences(getApplicationContext());
+		if(prefs.getKillApp()) {
+			prefs.clearKillApp();
+			finish();
+		}
 	    //Resources res = getResources();
 		tabHost = getTabHost(); // The activity TabHost
 		TabHost.TabSpec spec; // Reusable TabSpec for each tab
