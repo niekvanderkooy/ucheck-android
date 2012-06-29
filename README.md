@@ -1,6 +1,6 @@
 uCheck for Android
 ==============
-This application aims to provide an Android client for the [uCheck](http://ucheck.nl/), a service which aims to replace the overly complex uSis service provided by Leiden University.
+This application aims to provide an Android client for [uCheck](http://ucheck.nl/), a service which aims to replace the overly complex uSis service provided by Leiden University.
 
 License
 --------------
