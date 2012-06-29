@@ -51,7 +51,7 @@ public class Grades extends Activity {
 		studies = new ArrayList<String>();
 		
 		refreshButton.setOnClickListener(refreshListener);
-
+		spinner.setVisibility(8);
 		prefs.forceNewGrades();
 	}
 

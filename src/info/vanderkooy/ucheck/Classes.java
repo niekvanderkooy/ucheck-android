@@ -45,7 +45,7 @@ public class Classes extends Activity {
 		prefs = new Preferences(getApplicationContext());
 		
 		refreshButton.setOnClickListener(refreshListener);
-
+		spinner.setVisibility(8);
 		prefs.forceNewClasses();
 	}
 
