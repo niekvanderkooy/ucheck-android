@@ -81,7 +81,6 @@ public class UcheckAndroidMain extends TabActivity {
 		if(!prefs.getGoingToInfo()) {
 			//Only tracks resumes that are actually coming from the Android home screen,
 			//not from the info screen
-			tracker.trackPageView("/resume");
 			if(prefs.getKey().equals("")) {
 				Intent loginIntent = new Intent().setClass(UcheckAndroidMain.this, Login.class);
 				UcheckAndroidMain.this.startActivity(loginIntent);

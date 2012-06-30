@@ -110,9 +110,13 @@ public class Classes extends Activity {
 				enrollments = data.getJSONArray("inschrijvingen");
 				if (studies.length() > 1) {
 					spinner.setVisibility(0);
+					for (int i = 0; i < studies.length(); i++) {
+						tracker.trackEvent("uCheck", "Studies", studieLijst.get((String) studies.get(i)), 0);
+					}
 					updateSpinner();
 				} else {
 					spinner.setVisibility(8);
+					tracker.trackEvent("uCheck", "Studies", studieLijst.get((String) studies.get(0)), 0);
 					makeList(getString(R.string.allClasses));
 				}
 			} catch (JSONException e) {
