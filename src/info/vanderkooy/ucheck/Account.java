@@ -1,5 +1,7 @@
 package info.vanderkooy.ucheck;
 
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,6 +19,7 @@ public class Account extends Activity {
 	private CheckBox storePass;
 	private Button infoButton;
 	private Button loginButton;
+	private GoogleAnalyticsTracker tracker;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -25,6 +28,7 @@ public class Account extends Activity {
 		setContentView(R.layout.account);
 
 		prefs = new Preferences(getApplicationContext());
+		tracker = GoogleAnalyticsTracker.getInstance();
 		
 		infoButton = (Button) findViewById(R.id.info);
 		loginButton = (Button) findViewById(R.id.login);
@@ -45,6 +49,7 @@ public class Account extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		tracker.trackPageView("/account");
 		username.setText(prefs.getUsername());
 		password.setText("........");
 		storePass.setChecked(prefs.getStorePass());		
@@ -52,6 +57,7 @@ public class Account extends Activity {
 	
 	private OnClickListener storePassListener = new OnClickListener() {
 		public void onClick(View v) {
+			tracker.trackEvent("Account", "Click", "storePass", 0);
 			prefs.setStorePass(storePass.isChecked());
 		}
 	};
@@ -59,6 +65,7 @@ public class Account extends Activity {
 	private OnClickListener logoutListener = new OnClickListener() {
 		public void onClick(View v) {
 			prefs.clearKey();
+			tracker.trackEvent("Account", "Click", "logout", 0);
 			Intent loginIntent = new Intent().setClass(Account.this,
 					Login.class);
 			Account.this.startActivity(loginIntent);
@@ -68,6 +75,7 @@ public class Account extends Activity {
 	private OnClickListener infoButtonListener = new OnClickListener() {
 		public void onClick(View v) {
 			prefs.setGoingToInfo(true);
+			tracker.trackEvent("Account", "Click", "info", 0);
 			Intent infoIntent = new Intent().setClass(Account.this,
 					Info.class);
 			Account.this.startActivity(infoIntent);

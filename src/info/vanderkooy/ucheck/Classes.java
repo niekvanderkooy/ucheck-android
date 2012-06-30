@@ -9,6 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ public class Classes extends Activity {
 	private Spinner spinner;
 	private ProgressDialog dialog;
 	private Button refreshButton;
+	private GoogleAnalyticsTracker tracker;
 
 	private Map<String, String> studieLijst = Meta.getStudieLijst();
 
@@ -43,6 +46,7 @@ public class Classes extends Activity {
 		refreshButton = (Button) findViewById(R.id.refresh);
 		handler = new APIHandler(getApplicationContext());
 		prefs = new Preferences(getApplicationContext());
+		tracker = GoogleAnalyticsTracker.getInstance();
 		
 		refreshButton.setOnClickListener(refreshListener);
 		spinner.setVisibility(8);
@@ -52,7 +56,9 @@ public class Classes extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		tracker.trackPageView("/classes");
 		if (prefs.classesNeedUpdate()) {
+			tracker.trackEvent("Classes", "load", "auto", 0);
 			load();
 		}
 	}
@@ -203,6 +209,7 @@ public class Classes extends Activity {
 	
 	private OnClickListener refreshListener = new OnClickListener() {
 		public void onClick(View v) {
+			tracker.trackEvent("Classes", "load", "manual", 0);
 			load();
 		}
 	};
