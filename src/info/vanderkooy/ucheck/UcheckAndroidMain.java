@@ -4,6 +4,7 @@ import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
 import android.app.TabActivity;
 import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.widget.TabHost;
 
@@ -26,6 +27,18 @@ public class UcheckAndroidMain extends TabActivity {
 		tracker = GoogleAnalyticsTracker.getInstance();
 		tracker.startNewSession("UA-33051377-1", this);
 		tracker.trackPageView("/startup");
+		String versionName;
+		int versionCode;
+		try {
+			versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+			versionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+		} catch (NameNotFoundException e) {
+			versionName = "error";
+			versionCode = 0;
+		}
+		
+		tracker.trackEvent("uCheck", "VersionName", versionName, 0);
+		tracker.trackEvent("uCheck", "VersionCode", Integer.toString(versionCode), 0);
 		
 	    //Resources res = getResources();
 		tabHost = getTabHost(); // The activity TabHost
