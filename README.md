@@ -25,7 +25,10 @@ All contributors are listed below:
 
 Changelog
 --------------
-v1.0.1 (Current version):
+v1.0.2 (Current version):
+* Fixed occasional crash when logging in.
+
+v1.0.1:
 * When not logged in (and at the login screen), pressing the back button now shuts down the app.
 
 v1.0.0:

@@ -86,8 +86,13 @@ public class Login extends Activity {
 									prefs.setStorePass(storePass.isChecked());
 									if(!usr.equals(finalUsernameString))
 										prefs.forceNewData();
-									dialog.hide();
-									dialog.dismiss();
+								    try {
+										dialog.hide();
+								        dialog.dismiss();
+								        dialog = null;
+								    } catch (Exception e) {
+								        // nothing
+								    }
 									finish();
 								} else {
 									Toast toast;
