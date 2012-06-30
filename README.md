@@ -12,7 +12,7 @@ To view a copy of this license, visit
 http://creativecommons.org/licenses/by-nc-sa/3.0/ 
 
 In addition to the terms stated in this license, the author asks you not to publish the compiled application to Google Play or other Android application distribution services,
-but instead to refer people to this project's [GitHub page](https://github.com/niekvanderkooy/ucheck-android/)
+but instead to refer people to this project's [GitHub page](https://github.com/niekvanderkooy/ucheck-android/) or the application page on [Google Play](https://play.google.com/store/apps/details?id=info.vanderkooy.ucheck)
 
 Contribution to this project however are encouraged, and new features submitted by pull-request on GitHub are likely to be included in subsequent releases.
 
