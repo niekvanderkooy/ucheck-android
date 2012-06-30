@@ -86,6 +86,8 @@ public class UcheckAndroidMain extends TabActivity {
 		lastTab = tabHost.getCurrentTab();
 		if(!prefs.getStorePass())
 			prefs.clearKey();	
+		if(!prefs.getGoingToInfo())
+			tracker.dispatch();
 	}
 	
 	public void onDestroy() {
