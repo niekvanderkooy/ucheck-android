@@ -15,7 +15,9 @@ import org.apache.http.protocol.HttpContext;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+import com.google.analytics.tracking.android.GAServiceManager;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -25,12 +27,12 @@ import android.widget.Toast;
 public class APIHandler {
 	private Preferences prefs;
 	private Context ctx;
-	private GoogleAnalyticsTracker tracker;
+	private Tracker tracker;
 
 	public APIHandler(Context ctx) {
 		this.ctx = ctx;
 		prefs = new Preferences(ctx);
-		tracker = GoogleAnalyticsTracker.getInstance();
+		tracker = GoogleAnalytics.getInstance(ctx).getDefaultTracker();
 	}
 	
 	public boolean isNetworkAvailable() {
@@ -38,9 +40,9 @@ public class APIHandler {
 	          = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
 	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 	    if(activeNetworkInfo != null) {
-	    	tracker.trackEvent("APIHandler", "isNetworkAvailable", "Yes", 0);
+	    	tracker.trackEvent("APIHandler", "isNetworkAvailable", "Yes", (long) 0);
 	    } else {
-	    	tracker.trackEvent("APIHandler", "isNetworkAvailable", "No", 0);
+	    	tracker.trackEvent("APIHandler", "isNetworkAvailable", "No", (long) 0);
 	    }
 	    return activeNetworkInfo != null;
 	}
@@ -51,8 +53,8 @@ public class APIHandler {
 	}
 
 	public int getKey(String username, String password) {
-		tracker.trackEvent("APIHandler", "getInfo", "Key", 0);
-		tracker.dispatch();
+		tracker.trackEvent("APIHandler", "getInfo", "Key", (long) 0);
+		GAServiceManager.getInstance().dispatch();
 		if (username == "" || password == "")
 			return 0;
 		
@@ -70,16 +72,16 @@ public class APIHandler {
 	}
 
 	public String getProgress() {
-		tracker.trackEvent("APIHandler", "getInfo", "Progress", 0);
-		tracker.dispatch();
+		tracker.trackEvent("APIHandler", "getInfo", "Progress", (long) 0);
+		GAServiceManager.getInstance().dispatch();
 		String username = prefs.getUsername();
 		String key = prefs.getKey();
 		return getWebPage("https://ucheck.nl/api/voortgang.php?user=" + URLEncoder.encode(username) + "&pass=" + key);
 	}
 	
 	public JSONObject getGrades() {
-		tracker.trackEvent("APIHandler", "getInfo", "Grades", 0);
-		tracker.dispatch();
+		tracker.trackEvent("APIHandler", "getInfo", "Grades", (long) 0);
+		GAServiceManager.getInstance().dispatch();
 		String username = prefs.getUsername();
 		String key = prefs.getKey();
 		String data = getWebPage("https://ucheck.nl/api/cijfers.php?user=" + URLEncoder.encode(username) + "&pass=" + key);
@@ -94,8 +96,8 @@ public class APIHandler {
 	}
 	
 	public JSONObject getClasses() {
-		tracker.trackEvent("APIHandler", "getInfo", "Classes", 0);
-		tracker.dispatch();
+		tracker.trackEvent("APIHandler", "getInfo", "Classes", (long) 0);
+		GAServiceManager.getInstance().dispatch();
 		String username = prefs.getUsername();
 		String key = prefs.getKey();
 		String data = getWebPage("https://ucheck.nl/api/inschrijvingen.php?user=" + URLEncoder.encode(username) + "&pass=" + key);

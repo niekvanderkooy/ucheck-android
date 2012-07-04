@@ -3,7 +3,8 @@ package info.vanderkooy.ucheck;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -21,7 +22,7 @@ public class Progress extends Activity {
 	private ProgressDialog dialog;
 	private String progressData;
 	private Button refreshButton;
-	private GoogleAnalyticsTracker tracker;
+	private Tracker tracker;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -32,7 +33,7 @@ public class Progress extends Activity {
 	    refreshButton = (Button) findViewById(R.id.refresh);
 	    handler = new APIHandler(getApplicationContext());
 	    prefs = new Preferences(getApplicationContext());
-	    tracker = GoogleAnalyticsTracker.getInstance();
+	    tracker = GoogleAnalytics.getInstance(getApplicationContext()).getDefaultTracker();
 	    
 	    refreshButton.setOnClickListener(refreshListener);
 
@@ -42,9 +43,9 @@ public class Progress extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		tracker.trackPageView("/progress");
+		tracker.trackView("/progress");
 		if(prefs.progressNeedUpdate()) {
-			tracker.trackEvent("Progress", "load", "auto", 0);
+			tracker.trackEvent("Progress", "load", "auto", (long) 0);
 			load();			
 		}
 	}
@@ -103,7 +104,7 @@ public class Progress extends Activity {
 	
 	private OnClickListener refreshListener = new OnClickListener() {
 		public void onClick(View v) {
-			tracker.trackEvent("Progress", "load", "manual", 0);
+			tracker.trackEvent("Progress", "load", "manual", (long) 0);
 			load();
 		}
 	};

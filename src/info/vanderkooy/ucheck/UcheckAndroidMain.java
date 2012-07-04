@@ -1,6 +1,8 @@
 package info.vanderkooy.ucheck;
 
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+import com.google.analytics.tracking.android.GAServiceManager;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
 
 import android.app.TabActivity;
 import android.content.Intent;
@@ -12,7 +14,8 @@ public class UcheckAndroidMain extends TabActivity {
 	private Preferences prefs;
 	private TabHost tabHost;
 	private int lastTab;
-	private GoogleAnalyticsTracker tracker;
+	private GoogleAnalytics instance;
+	private Tracker tracker;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -24,21 +27,12 @@ public class UcheckAndroidMain extends TabActivity {
 			finish();
 		}
 		
-		tracker = GoogleAnalyticsTracker.getInstance();
-		tracker.startNewSession("UA-33051377-1", this);
-		tracker.trackPageView("/startup");
-		String versionName;
-		int versionCode;
-		try {
-			versionName = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
-			versionCode = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
-		} catch (NameNotFoundException e) {
-			versionName = "error";
-			versionCode = 0;
-		}
-		
-		tracker.trackEvent("uCheck", "VersionName", versionName, 0);
-		tracker.trackEvent("uCheck", "VersionCode", Integer.toString(versionCode), 0);
+		GAServiceManager.getInstance().setDispatchPeriod(-1);
+		instance = GoogleAnalytics.getInstance(getApplicationContext());
+		instance.setDebug(true);
+		tracker = instance.getTracker("UA-33051377-2");
+		instance.setDefaultTracker(tracker);
+		tracker.trackView("/startup");
 		
 	    //Resources res = getResources();
 		tabHost = getTabHost(); // The activity TabHost
@@ -99,13 +93,12 @@ public class UcheckAndroidMain extends TabActivity {
 		if(!prefs.getStorePass())
 			prefs.clearKey();	
 		if(!prefs.getGoingToInfo())
-			tracker.dispatch();
+			GAServiceManager.getInstance().dispatch();
 	}
 	
 	public void onDestroy() {
 		super.onDestroy();
-		tracker.dispatch();	
-		tracker.stopSession();
+		GAServiceManager.getInstance().dispatch();
 	}
 
 }

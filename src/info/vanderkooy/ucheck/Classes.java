@@ -9,7 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -33,7 +34,7 @@ public class Classes extends Activity {
 	private Spinner spinner;
 	private ProgressDialog dialog;
 	private Button refreshButton;
-	private GoogleAnalyticsTracker tracker;
+	private Tracker tracker;
 
 	private Map<String, String> studieLijst = Meta.getStudieLijst();
 
@@ -46,7 +47,7 @@ public class Classes extends Activity {
 		refreshButton = (Button) findViewById(R.id.refresh);
 		handler = new APIHandler(getApplicationContext());
 		prefs = new Preferences(getApplicationContext());
-		tracker = GoogleAnalyticsTracker.getInstance();
+		tracker = GoogleAnalytics.getInstance(getApplicationContext()).getDefaultTracker();
 		
 		refreshButton.setOnClickListener(refreshListener);
 		spinner.setVisibility(8);
@@ -56,9 +57,9 @@ public class Classes extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		tracker.trackPageView("/classes");
+		tracker.trackView("/classes");
 		if (prefs.classesNeedUpdate()) {
-			tracker.trackEvent("Classes", "load", "auto", 0);
+			tracker.trackEvent("Classes", "load", "auto", (long) 0);
 			load();
 		}
 	}
@@ -111,12 +112,12 @@ public class Classes extends Activity {
 				if (studies.length() > 1) {
 					spinner.setVisibility(0);
 					for (int i = 0; i < studies.length(); i++) {
-						tracker.trackEvent("uCheck", "Studies", studieLijst.get((String) studies.get(i)), 0);
+						tracker.trackEvent("uCheck", "Studies", studieLijst.get((String) studies.get(i)), (long) 0);
 					}
 					updateSpinner();
 				} else {
 					spinner.setVisibility(8);
-					tracker.trackEvent("uCheck", "Studies", studieLijst.get((String) studies.get(0)), 0);
+					tracker.trackEvent("uCheck", "Studies", studieLijst.get((String) studies.get(0)), (long) 0);
 					makeList(getString(R.string.allClasses));
 				}
 			} catch (JSONException e) {
@@ -213,7 +214,7 @@ public class Classes extends Activity {
 	
 	private OnClickListener refreshListener = new OnClickListener() {
 		public void onClick(View v) {
-			tracker.trackEvent("Classes", "load", "manual", 0);
+			tracker.trackEvent("Classes", "load", "manual", (long) 0);
 			load();
 		}
 	};
