@@ -1,5 +1,9 @@
 package info.vanderkooy.ucheck;
 
+import com.google.analytics.tracking.android.GAServiceManager;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
+
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -11,6 +15,8 @@ public class UcheckAndroidMain extends TabActivity {
 	private Preferences prefs;
 	private TabHost tabHost;
 	private int lastTab;
+	private GoogleAnalytics instance;
+	private Tracker tracker;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -21,6 +27,13 @@ public class UcheckAndroidMain extends TabActivity {
 			prefs.clearKillApp();
 			finish();
 		}
+		
+		GAServiceManager.getInstance().setDispatchPeriod(-1);
+		instance = GoogleAnalytics.getInstance(getApplicationContext());
+		tracker = instance.getTracker("UA-33051377-2");
+		instance.setDefaultTracker(tracker);
+		tracker.trackView("/startup");
+		
 	    //Resources res = getResources();
 		tabHost = getTabHost(); // The activity TabHost
 		TabHost.TabSpec spec; // Reusable TabSpec for each tab
@@ -65,6 +78,8 @@ public class UcheckAndroidMain extends TabActivity {
 	public void onResume() {
 		super.onResume();
 		if(!prefs.getGoingToInfo()) {
+			//Only tracks resumes that are actually coming from the Android home screen,
+			//not from the info screen
 			if(prefs.getKey().equals("")) {
 				Intent loginIntent = new Intent().setClass(UcheckAndroidMain.this, Login.class);
 				UcheckAndroidMain.this.startActivity(loginIntent);
@@ -82,6 +97,13 @@ public class UcheckAndroidMain extends TabActivity {
 		lastTab = tabHost.getCurrentTab();
 		if(!prefs.getStorePass())
 			prefs.clearKey();	
+		if(!prefs.getGoingToInfo())
+			GAServiceManager.getInstance().dispatch();
+	}
+	
+	public void onDestroy() {
+		super.onDestroy();
+		GAServiceManager.getInstance().dispatch();
 	}
 	
 	@Override

@@ -10,6 +10,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -33,6 +36,7 @@ public class Grades extends Activity {
 	private Spinner spinner;
 	private ProgressDialog dialog;
 	private Button refreshButton;
+	private Tracker tracker;
 
 	private Map<String, String> studieLijst = Meta.getStudieLijst();
 
@@ -43,6 +47,8 @@ public class Grades extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.grades);
+		
+		tracker = GoogleAnalytics.getInstance(getApplicationContext()).getDefaultTracker();
 
 		spinner = (Spinner) findViewById(R.id.spinner);
 		refreshButton = (Button) findViewById(R.id.refresh);
@@ -58,7 +64,9 @@ public class Grades extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		tracker.trackView("/grades");
 		if (prefs.gradesNeedUpdate()) {
+			tracker.trackEvent("Grades", "load", "auto", (long) 0);
 			load();
 		}
 	}
@@ -244,6 +252,7 @@ public class Grades extends Activity {
 	
 	private OnClickListener refreshListener = new OnClickListener() {
 		public void onClick(View v) {
+			tracker.trackEvent("Grades", "load", "manual", (long) 0);
 			load();
 		}
 	};

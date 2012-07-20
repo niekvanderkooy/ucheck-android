@@ -3,6 +3,9 @@ package info.vanderkooy.ucheck;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -19,6 +22,7 @@ public class Progress extends Activity {
 	private ProgressDialog dialog;
 	private String progressData;
 	private Button refreshButton;
+	private Tracker tracker;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -29,6 +33,7 @@ public class Progress extends Activity {
 	    refreshButton = (Button) findViewById(R.id.refresh);
 	    handler = new APIHandler(getApplicationContext());
 	    prefs = new Preferences(getApplicationContext());
+	    tracker = GoogleAnalytics.getInstance(getApplicationContext()).getDefaultTracker();
 	    
 	    refreshButton.setOnClickListener(refreshListener);
 
@@ -38,7 +43,9 @@ public class Progress extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		tracker.trackView("/progress");
 		if(prefs.progressNeedUpdate()) {
+			tracker.trackEvent("Progress", "load", "auto", (long) 0);
 			load();			
 		}
 	}
@@ -97,6 +104,7 @@ public class Progress extends Activity {
 	
 	private OnClickListener refreshListener = new OnClickListener() {
 		public void onClick(View v) {
+			tracker.trackEvent("Progress", "load", "manual", (long) 0);
 			load();
 		}
 	};

@@ -1,5 +1,8 @@
 package info.vanderkooy.ucheck;
 
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -23,6 +26,7 @@ public class Login extends Activity {
 	private Button infoButton;
 	private Button loginButton;
 	private ProgressDialog dialog;
+	private Tracker tracker;
 
 	// private Button newData;
 
@@ -34,6 +38,8 @@ public class Login extends Activity {
 
 		handler = new APIHandler(getApplicationContext());
 		prefs = new Preferences(getApplicationContext());
+		
+		tracker = GoogleAnalytics.getInstance(getApplicationContext()).getDefaultTracker();
 
 		infoButton = (Button) findViewById(R.id.info);
 		loginButton = (Button) findViewById(R.id.login);
@@ -56,9 +62,16 @@ public class Login extends Activity {
 		loginButton.setOnClickListener(loginListener);
 		infoButton.setOnClickListener(infoButtonListener);
 	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		tracker.trackView("/login");
+	}
 
 	private OnClickListener loginListener = new OnClickListener() {
 		public void onClick(View v) {
+			tracker.trackEvent("Login", "Click", "Login", (long) 0);
 			String usernameString = username.getText().toString();
 
 			if (usernameString.length() >= 1
@@ -83,6 +96,7 @@ public class Login extends Activity {
 							@Override
 							public void run() {
 								if (success) {
+									tracker.trackEvent("Login", "LoginResponse", "Success", (long) 0);
 									prefs.setStorePass(storePass.isChecked());
 									if(!usr.equals(finalUsernameString))
 										prefs.forceNewData();
@@ -95,6 +109,7 @@ public class Login extends Activity {
 								    }
 									finish();
 								} else {
+									tracker.trackEvent("Login", "LoginResponse", "Fail", (long) 0);
 									Toast toast;
 									if (finalReturned == 0) {
 										toast = Toast.makeText(
@@ -135,6 +150,7 @@ public class Login extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)  {
 	    if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+	    	tracker.trackEvent("Login", "Click", "killApp", (long) 0);
 	    	prefs.setKillApp();
 	    	int pid = android.os.Process.myPid();
 	        android.os.Process.killProcess(pid);
@@ -145,6 +161,7 @@ public class Login extends Activity {
 
 	private OnClickListener infoButtonListener = new OnClickListener() {
 		public void onClick(View v) {
+			tracker.trackEvent("Login", "Click", "info", (long) 0);
 			prefs.setGoingToInfo(true);
 			Intent infoIntent = new Intent().setClass(Login.this, Info.class);
 			Login.this.startActivity(infoIntent);
