@@ -25,7 +25,12 @@ All contributors are listed below:
 
 Changelog
 --------------
-v1.0.2 (Current version):
+v1.1.0 (Current version):
+* Added support for changing orientations
+* Added Google Analytics support
+* Fixed alternating row colours disappearing
+
+v1.0.2:
 * Fixed occasional crash when logging in.
 
 v1.0.1:
