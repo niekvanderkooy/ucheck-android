@@ -2,7 +2,9 @@ package info.vanderkooy.ucheck;
 
 import android.app.TabActivity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TabHost;
 
 public class UcheckAndroidMain extends TabActivity {
@@ -53,6 +55,11 @@ public class UcheckAndroidMain extends TabActivity {
 				.setContent(intent);
 		tabHost.addTab(spec);
 		
+		if(prefs.getLastTab() != -1) {
+			tabHost.setCurrentTab(prefs.getLastTab());
+			prefs.setLastTab(-1);
+		}
+		
 	}
 	
 	public void onResume() {
@@ -75,6 +82,14 @@ public class UcheckAndroidMain extends TabActivity {
 		lastTab = tabHost.getCurrentTab();
 		if(!prefs.getStorePass())
 			prefs.clearKey();	
+	}
+	
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+	    super.onConfigurationChanged(newConfig);
+	    prefs.setLastTab(tabHost.getCurrentTab());
+	    
+	    
 	}
 
 }

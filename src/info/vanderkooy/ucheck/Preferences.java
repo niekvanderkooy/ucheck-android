@@ -74,6 +74,15 @@ public class Preferences {
 		return editor.commit();
 	}
 	
+	public boolean setLastTab(int tab) {
+		editor.putInt("lasttab", tab);
+		return editor.commit();
+	}
+	
+	public Integer getLastTab() {
+		return pref.getInt("lasttab", -1);
+	}
+	
 	/***************************************************************
 	 * What follow is really ugly code to keep track
 	 * of when a particular tab was last updated,
