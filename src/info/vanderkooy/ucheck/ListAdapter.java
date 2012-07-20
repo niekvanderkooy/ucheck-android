@@ -32,11 +32,11 @@ public class ListAdapter extends SimpleAdapter {
 	
 	public View getView(int position, View convertView, ViewGroup viewGroup) {
 		HashMap<String, String> entry = data.get(position);
-		if (convertView == null) {
+		//if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(resource, null);
-		}
+		//}
 		
 		TextView[] tvs = new TextView[to.length];
 		for(int i = 0; i < to.length; i++) {
@@ -61,10 +61,8 @@ public class ListAdapter extends SimpleAdapter {
 
         if(position % 2 == 1) {
             convertView.setBackgroundResource(R.color.light_gray);
-        }
-        else {
+        } else {
             convertView.setBackgroundColor(Color.WHITE);
-
         }
 		
 		return convertView;		
