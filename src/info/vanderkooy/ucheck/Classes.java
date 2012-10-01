@@ -2,8 +2,10 @@ package info.vanderkooy.ucheck;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,6 +14,7 @@ import org.json.JSONObject;
 import com.google.analytics.tracking.android.GoogleAnalytics;
 import com.google.analytics.tracking.android.Tracker;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -29,7 +32,8 @@ public class Classes extends Activity {
 	private APIHandler handler;
 	private Preferences prefs;
 	private JSONObject data;
-	private JSONArray studies;
+	private Set<String> studies;
+	private Object[] studieArray;
 	private JSONArray enrollments;
 	private Spinner spinner;
 	private ProgressDialog dialog;
@@ -107,17 +111,21 @@ public class Classes extends Activity {
 		} else {
 			prefs.setLastClassesUpdate();
 			try {
-				studies = data.getJSONArray("studies");
+				Set<String> studies = new HashSet<String>();
 				enrollments = data.getJSONArray("inschrijvingen");
-				if (studies.length() > 1) {
+				for(int i = 0; i < enrollments.length(); i++) {
+					studies.add(enrollments.getJSONObject(i).getString("studie"));
+				}
+				studieArray = studies.toArray();
+				if (studieArray.length > 1) {
 					spinner.setVisibility(0);
-					for (int i = 0; i < studies.length(); i++) {
-						tracker.trackEvent("uCheck", "Studies", studieLijst.get((String) studies.get(i)), (long) 0);
+					for (int i = 0; i < studies.size(); i++) {
+						tracker.trackEvent("uCheck", "Studies", studieLijst.get(studieArray[i]), (long) 0);
 					}
 					updateSpinner();
 				} else {
 					spinner.setVisibility(8);
-					tracker.trackEvent("uCheck", "Studies", studieLijst.get((String) studies.get(0)), (long) 0);
+					tracker.trackEvent("uCheck", "Studies", studieLijst.get((String) studieArray[0]), (long) 0);
 					makeList(getString(R.string.allClasses));
 				}
 			} catch (JSONException e) {
@@ -133,16 +141,11 @@ public class Classes extends Activity {
 	private void updateSpinner() {
 		ArrayList<String> spinnerArray = new ArrayList<String>();
 		spinnerArray.add(getString(R.string.allClasses));
-		for (int i = 0; i < studies.length(); i++) {
-			try {
-				if (studieLijst.get((String) studies.get(i)) != null)
-					spinnerArray.add(studieLijst.get(studies.get(i)));
-				else
-					spinnerArray.add((String) studies.get(i));
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		for (int i = 0; i < studieArray.length; i++) {
+			if (studieLijst.get(studieArray[i]) != null)
+				spinnerArray.add(studieLijst.get(studieArray[i]));
+			else
+				spinnerArray.add((String) studieArray[i]);
 		}
 
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
