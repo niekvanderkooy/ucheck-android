@@ -31,7 +31,6 @@ public class UcheckAndroidMain extends TabActivity {
 		instance = GoogleAnalytics.getInstance(getApplicationContext());
 		tracker = instance.getTracker("UA-33051377-2");
 		instance.setDefaultTracker(tracker);
-		tracker.trackView("/startup");
 		
 	    //Resources res = getResources();
 		tabHost = getTabHost(); // The activity TabHost
