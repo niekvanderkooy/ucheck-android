@@ -129,6 +129,7 @@ public class Classes extends Activity {
 					makeList(getString(R.string.allClasses));
 				}
 			} catch (JSONException e) {
+				tracker.trackEvent("Exception", "Classes", "processData JSONException", (long) 0);
 				Toast toast = Toast.makeText(getApplicationContext(),
 						getString(R.string.loadError), Toast.LENGTH_LONG);
 				toast.show();
@@ -183,6 +184,7 @@ public class Classes extends Activity {
 				map.put("info", (String) enrollments.getJSONObject(i).get("id"));
 				studie = (String) enrollments.getJSONObject(i).get("studie");
 			} catch (JSONException e) {
+				tracker.trackEvent("Exception", "Classes", "makeList JSONException", (long) 0);
 				e.printStackTrace();
 			}
 			if (subject.equals(getString(R.string.allClasses)) || subject.equals(studie)) {

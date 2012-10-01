@@ -89,6 +89,7 @@ public class APIHandler {
 		try {
 			obj = new JSONObject(data);
 		} catch (JSONException e) {
+			tracker.trackEvent("Exception", "APIHandler", "getGrades obj", (long) 0);
 			obj = null;
 			e.printStackTrace();
 		}
@@ -105,6 +106,7 @@ public class APIHandler {
 		try {
 			obj = new JSONObject(data);
 		} catch (JSONException e) {
+			tracker.trackEvent("Exception", "APIHandler", "getClasses obj", (long) 0);
 			obj = null;
 			e.printStackTrace();
 		}
@@ -119,9 +121,11 @@ public class APIHandler {
 		try {
 			response = httpClient.execute(httpGet, localContext);
 		} catch (ClientProtocolException e) {
+			tracker.trackEvent("Exception", "APIHandler", "getWebPage ClientProtocolException", (long) 0);
 			e.printStackTrace();
 			return "";
 		} catch (IOException e) {
+			tracker.trackEvent("Exception", "APIHandler", "IOException", (long) 0);
 			e.printStackTrace();
 			return "";
 		}
@@ -132,9 +136,11 @@ public class APIHandler {
 			reader = new BufferedReader(new InputStreamReader(response
 					.getEntity().getContent()));
 		} catch (IllegalStateException e) {
+			tracker.trackEvent("Exception", "APIHandler", "getWebPage IllegalStateException", (long) 0);
 			e.printStackTrace();
 			return "";
 		} catch (IOException e) {
+			tracker.trackEvent("Exception", "APIHandler", "getWebPage IOException2", (long) 0);
 			e.printStackTrace();
 			return "";
 		}
@@ -145,6 +151,7 @@ public class APIHandler {
 				result += line + "\n";
 			}
 		} catch (IOException e) {
+			tracker.trackEvent("Exception", "APIHandler", "getWebPage IOException3", (long) 0);
 			e.printStackTrace();
 			return "";
 		}

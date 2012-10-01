@@ -134,6 +134,7 @@ public class Grades extends Activity {
 			try {
 				subjects = data.getJSONArray("vakken");
 			} catch (JSONException e) {
+				tracker.trackEvent("Exception", "Grades", "processData subjects =", (long) 0);
 				Toast toast = Toast
 						.makeText(
 								getApplicationContext(),
@@ -149,7 +150,7 @@ public class Grades extends Activity {
 				try {
 					vak = (String) subjects.getJSONObject(i).get("studie");
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
+					tracker.trackEvent("Exception", "Grades", "processData vak =", (long) 0);
 					e.printStackTrace();
 				}
 				if (!studies.contains(vak) && !vak.equals("")) {
@@ -218,6 +219,7 @@ public class Grades extends Activity {
 					map.put("gehaald", "false");
 				studie = (String) subjects.getJSONObject(i).get("studie");
 			} catch (JSONException e) {
+				tracker.trackEvent("Exception", "Grades", "makeList JSONException", (long) 0);
 				e.printStackTrace();
 			}
 			if (subject.equals(getString(R.string.allGrades)) || subject.equals(studie)) {
