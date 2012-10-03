@@ -25,7 +25,10 @@ All contributors are listed below:
 
 Changelog
 --------------
-v1.1.1 (Current version):
+v1.1.2 (Current version):
+* Crash fix
+
+v1.1.1:
 * Fix for enrollments not being shown
 * Better Google Analytics tracking of errors and exceptions
 

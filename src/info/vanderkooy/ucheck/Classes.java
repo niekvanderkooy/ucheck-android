@@ -125,7 +125,8 @@ public class Classes extends Activity {
 					updateSpinner();
 				} else {
 					spinner.setVisibility(8);
-					tracker.trackEvent("uCheck", "Studies", studieLijst.get((String) studieArray[0]), (long) 0);
+					if(studieArray.length > 0)
+						tracker.trackEvent("uCheck", "Studies", studieLijst.get((String) studieArray[0]), (long) 0);
 					makeList(getString(R.string.allClasses));
 				}
 			} catch (JSONException e) {
