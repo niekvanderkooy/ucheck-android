@@ -16,16 +16,21 @@ import com.google.analytics.tracking.android.Tracker;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Classes extends Activity {
@@ -33,6 +38,8 @@ public class Classes extends Activity {
 	private Preferences prefs;
 	private JSONObject data;
 	private Set<String> studies;
+	private HashMap<String, String> stopIDs;
+	private String unenrollSubject;
 	private Object[] studieArray;
 	private JSONArray enrollments;
 	private Spinner spinner;
@@ -112,9 +119,11 @@ public class Classes extends Activity {
 			prefs.setLastClassesUpdate();
 			try {
 				Set<String> studies = new HashSet<String>();
+				stopIDs = new HashMap<String, String>();
 				enrollments = data.getJSONArray("inschrijvingen");
 				for(int i = 0; i < enrollments.length(); i++) {
 					studies.add(enrollments.getJSONObject(i).getString("studie"));
+					stopIDs.put(enrollments.getJSONObject(i).getString("vak"), enrollments.getJSONObject(i).getString("stopid"));
 				}
 				studieArray = studies.toArray();
 				if (studieArray.length > 1) {
@@ -196,9 +205,77 @@ public class Classes extends Activity {
 				R.layout.rowclasses, new String[] { "classes", "info" },
 				new int[] { R.id.classes, R.id.info });
 		list.setAdapter(mSchedule);
+		list.setOnItemLongClickListener(unenrollListener);
 		list.setSelector(android.R.color.transparent);
 
 	}
+	
+	private OnItemLongClickListener unenrollListener = new OnItemLongClickListener() {
+		@Override
+		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+				int arg2, long arg3) {
+			if(arg2 == 0) {
+				//First row, not a subject
+			} else {
+				unenrollSubject = (String) ((TextView) arg1.findViewById(R.id.classes)).getText();
+				AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
+				builder.setMessage("Weet je zeker dat je je wilt uitschrijven voor: " + unenrollSubject + "?").setPositiveButton("Ja", dialogClickListener)
+				    .setNegativeButton("Nee", dialogClickListener).show();
+			}
+			return false;
+		}
+	};
+	
+	DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+		String response = "";
+		
+	    @Override
+	    public void onClick(DialogInterface _dialog, int which) {
+	        switch (which){
+	        case DialogInterface.BUTTON_POSITIVE:
+	        	dialog = ProgressDialog.show(Classes.this, "",
+	    				"Bezig...", true);
+	        	
+	        	Thread thread = new Thread(new Runnable() {
+	    			public void run() {
+	    				if(handler.isNetworkAvailable()) {
+	    					response = handler.unenroll(stopIDs.get(unenrollSubject));
+	    					runOnUiThread(new Runnable() {
+	    						@Override
+	    						public void run() {
+	    							if (dialog.isShowing()) {
+	    								dialog.hide();
+	    								dialog.dismiss();
+	    							}
+	    							Toast toast = Toast.makeText(getApplicationContext(),
+	    									"Antwoord van uSis: " + response, Toast.LENGTH_LONG);
+	    							toast.show();
+	    							load();
+	    						}
+	    					});
+	    				} else {
+	    					runOnUiThread(new Runnable() {
+	    						@Override
+	    						public void run() {
+	    							if (dialog.isShowing()) {
+	    								dialog.hide();
+	    								dialog.dismiss();
+	    							}
+	    							handler.noNetworkToast();
+	    						}
+	    					});
+	    				}
+	    			}
+	    		});
+	    		thread.start();
+	            break;
+
+	        case DialogInterface.BUTTON_NEGATIVE:
+	            //No button clicked
+	            break;
+	        }
+	    }
+	};
 
 	private class MyOnItemSelectedListener implements OnItemSelectedListener {
 		public void onItemSelected(AdapterView<?> parent, View view, int pos,

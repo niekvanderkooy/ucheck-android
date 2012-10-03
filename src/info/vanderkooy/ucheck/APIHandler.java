@@ -22,6 +22,7 @@ import com.google.analytics.tracking.android.Tracker;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.widget.Toast;
 
 public class APIHandler {
@@ -156,5 +157,14 @@ public class APIHandler {
 			return "";
 		}
 		return result;
+	}
+	
+	public String unenroll(String stopid) {
+		String username = prefs.getUsername();
+		String key = prefs.getKey();
+		Log.v("uCheck", "https://ucheck.nl/api/uitschrijven?user=" + URLEncoder.encode(username) + "&pass=" + URLEncoder.encode(key) + "&q=" + stopid);
+		String response = getWebPage("https://ucheck.nl/api/uitschrijven?user=" + URLEncoder.encode(username) + "&pass=" + URLEncoder.encode(key) + "&q=" + stopid);
+		
+		return response;
 	}
 }
