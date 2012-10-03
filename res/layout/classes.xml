@@ -16,19 +16,30 @@
             android:layout_height="52dp"
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="0dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
             android:layout_marginTop="5dp"
             android:layout_toLeftOf="@+id/refresh" />
 
         <Button
-            android:id="@id/refresh"
-            android:layout_width="100dp"
+            android:id="@+id/refresh"
+            android:layout_width="80dp"
             android:layout_height="52dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/add"
+            android:layout_marginRight="2dp"
             android:layout_marginTop="5dp"
             android:text="@+string/refresh"
+            android:width="100dp" >
+        </Button>
+        
+        <Button
+            android:id="@+id/add"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="5dp"
+            android:text="+"
             android:width="100dp" >
         </Button>
 
