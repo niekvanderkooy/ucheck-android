@@ -1,11 +1,12 @@
 package info.vanderkooy.ucheck;
 
-import java.util.HashMap;
 import java.util.Map;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 
 public class Meta {
 	public static Map<String, String> getStudieLijst() {
-		Map<String, String> studieLijst = new HashMap<String, String>();
+		BiMap<String, String> studieLijst = HashBiMap.create();
 		
 		studieLijst.put("ALG", "Algemeen vakgebied");
 		studieLijst.put("ARAB", "Arabische talen en culturen");

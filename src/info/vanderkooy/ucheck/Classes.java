@@ -19,7 +19,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -37,14 +39,15 @@ public class Classes extends Activity {
 	private APIHandler handler;
 	private Preferences prefs;
 	private JSONObject data;
-	private Set<String> studies;
 	private HashMap<String, String> stopIDs;
 	private String unenrollSubject;
+	private ArrayList<String> studies;
 	private Object[] studieArray;
 	private JSONArray enrollments;
 	private Spinner spinner;
 	private ProgressDialog dialog;
 	private Button refreshButton;
+	private Button enrollButton;
 	private Tracker tracker;
 
 	private Map<String, String> studieLijst = Meta.getStudieLijst();
@@ -56,11 +59,13 @@ public class Classes extends Activity {
 		setContentView(R.layout.classes);
 		spinner = (Spinner) findViewById(R.id.spinner);
 		refreshButton = (Button) findViewById(R.id.refresh);
+		enrollButton = (Button) findViewById(R.id.add);
 		handler = new APIHandler(getApplicationContext());
 		prefs = new Preferences(getApplicationContext());
 		tracker = GoogleAnalytics.getInstance(getApplicationContext()).getDefaultTracker();
 		
 		refreshButton.setOnClickListener(refreshListener);
+		enrollButton.setOnClickListener(enrollListener);
 		spinner.setVisibility(8);
 		prefs.forceNewClasses();
 	}
@@ -118,7 +123,7 @@ public class Classes extends Activity {
 		} else {
 			prefs.setLastClassesUpdate();
 			try {
-				Set<String> studies = new HashSet<String>();
+				studies = new ArrayList<String>();
 				stopIDs = new HashMap<String, String>();
 				enrollments = data.getJSONArray("inschrijvingen");
 				for(int i = 0; i < enrollments.length(); i++) {
@@ -210,6 +215,41 @@ public class Classes extends Activity {
 
 	}
 	
+	private OnClickListener enrollListener = new OnClickListener() {
+		public void onClick(View v) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(Classes.this);
+			CharSequence[] cs = {"Inschrijven", "Uitschrijven"};
+			builder.setTitle("Wat wil je doen?").setItems(cs, enrollOptionListener).show();
+		}
+	};
+	
+	private DialogInterface.OnClickListener enrollOptionListener = new DialogInterface.OnClickListener() {
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			switch(which) {
+			case 0:
+				Intent enrollIntent = new Intent().setClass(Classes.this, Enroll.class);
+				enrollIntent.putExtra("studies", studies);
+				startActivity(enrollIntent);
+				break;
+			
+			case 1:
+				AlertDialog.Builder builder = new AlertDialog.Builder(Classes.this);
+				builder.setMessage("Houd een inschrijving lang ingedrukt om je er voor uit te schrijven")
+				.setNeutralButton("OK", emptyListener).show();
+				break;
+			}
+			
+		}
+	};
+	
+	private DialogInterface.OnClickListener emptyListener = new DialogInterface.OnClickListener() {
+		@Override
+		public void onClick(DialogInterface dialog, int which) {
+			
+		}
+	};
+	
 	private OnItemLongClickListener unenrollListener = new OnItemLongClickListener() {
 		@Override
 		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
@@ -218,15 +258,15 @@ public class Classes extends Activity {
 				//First row, not a subject
 			} else {
 				unenrollSubject = (String) ((TextView) arg1.findViewById(R.id.classes)).getText();
-				AlertDialog.Builder builder = new AlertDialog.Builder(arg0.getContext());
-				builder.setMessage("Weet je zeker dat je je wilt uitschrijven voor: " + unenrollSubject + "?").setPositiveButton("Ja", dialogClickListener)
-				    .setNegativeButton("Nee", dialogClickListener).show();
+				AlertDialog.Builder builder = new AlertDialog.Builder(Classes.this);
+				builder.setMessage("Weet je zeker dat je je wilt uitschrijven voor: " + unenrollSubject + "?").setPositiveButton("Ja", unenrollDialogClickListener)
+				    .setNegativeButton("Nee", unenrollDialogClickListener).show();
 			}
 			return false;
 		}
 	};
 	
-	DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+	DialogInterface.OnClickListener unenrollDialogClickListener = new DialogInterface.OnClickListener() {
 		String response = "";
 		
 	    @Override

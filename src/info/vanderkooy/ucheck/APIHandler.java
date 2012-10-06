@@ -167,4 +167,43 @@ public class APIHandler {
 		
 		return response;
 	}
+
+	public JSONObject getSubjects(String value) {
+		tracker.trackEvent("APIHandler", "getInfo", "Subjects", (long) 0);
+		GAServiceManager.getInstance().dispatch();
+		String data = getWebPage("https://ucheck.nl/api/vakken?vak=" + URLEncoder.encode(value) + "&year=12");
+		JSONObject obj;
+		try {
+			obj = new JSONObject(data);
+		} catch (JSONException e) {
+			tracker.trackEvent("Exception", "APIHandler", "getSubjects obj", (long) 0);
+			obj = null;
+			e.printStackTrace();
+		}
+		return obj;
+	}
+	
+	public JSONObject getSubjectInfo(String q) {
+		tracker.trackEvent("APIHandler", "getInfo", "subject info", (long) 0);
+		GAServiceManager.getInstance().dispatch();
+		String username = prefs.getUsername();
+		String key = prefs.getKey();
+		String response = getWebPage("https://ucheck.nl/api/details?year=12&user=" + URLEncoder.encode(username) + "&pass=" + URLEncoder.encode(key) + "&q=" + URLEncoder.encode(q));
+		JSONObject obj;
+		try {
+			obj = new JSONObject(response);
+		} catch (JSONException e) {
+			tracker.trackEvent("Exception", "APIHandler", "getSubjects obj", (long) 0);
+			obj = null;
+			e.printStackTrace();
+		}
+		return obj;
+	}
+	
+	public String enroll(String q, String nummer) {
+		String username = prefs.getUsername();
+		String key = prefs.getKey();
+		String response = getWebPage("https://ucheck.nl/api/inschrijven?year=12&user="+ URLEncoder.encode(username) +"&pass=" + URLEncoder.encode(key) + "&q=" + URLEncoder.encode(q) + "&nummer=" + URLEncoder.encode(nummer));
+		return response;
+	}
 }
