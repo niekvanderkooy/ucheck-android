@@ -46,7 +46,6 @@ public class Enroll extends Activity {
 	private BiMap<String, String> studieToKey;
 	private ArrayList<String> spinnerArray;
 	private ArrayList<String> loopbanenArray;
-	private String[] keyArray;
 	private String filterText;
 	private String subID;
 	private String subNumber;
@@ -91,7 +90,7 @@ public class Enroll extends Activity {
 	private void initStudiesSpinner() {
 		studies = (Spinner) findViewById(R.id.studies);
 
-		keyToStudie = (BiMap) Meta.getStudieLijst();
+		keyToStudie = (BiMap<String, String>) Meta.getStudieLijst();
 		studieToKey = keyToStudie.inverse();
 
 		ArrayList<String> studieList = getIntent().getExtras()
@@ -99,7 +98,7 @@ public class Enroll extends Activity {
 
 		String[] studieLijst = new String[studieToKey.size()];
 		studieLijst = (String[]) studieToKey.keySet().toArray(studieLijst);
-		ArrayList<String> spinnerArray = new ArrayList<String>();
+		spinnerArray = new ArrayList<String>();
 		for (int i = 0; i < studieLijst.length; i++) {
 			if (!studieList.contains(studieToKey.get(studieLijst[i])))
 				spinnerArray.add(studieLijst[i]);

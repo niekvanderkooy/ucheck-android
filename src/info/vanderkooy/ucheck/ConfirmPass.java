@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -19,7 +18,6 @@ public class ConfirmPass extends Activity {
 	private Preferences prefs;
 	private EditText username;
 	private EditText password;
-	private CheckBox storePass;
 	private Button confirmButton;
 	private Tracker tracker;
 	private APIHandler handler;
