@@ -5,93 +5,87 @@
     android:background="#f4f4f4"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/studieLayout"
+    <TableLayout
+        android:id="@+id/table"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/studieText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="Studie: "
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#000" />
+        <TableRow android:layout_marginTop="10dp" >
 
-        <Spinner
-            android:id="@+id/studies"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/studieText" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/studieText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Studie: "
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#000" />
+
+            <Spinner
+                android:id="@+id/studies"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-    <RelativeLayout
-        android:id="@+id/loopbaanLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/studieLayout" >
+        </TableRow>
 
-        <TextView
-            android:id="@+id/loopbaanText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="Loopbaan: "
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#000" />
+        <TableRow>
 
-        <Spinner
-            android:id="@+id/loopbaan"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/loopbaanText" />
-    </RelativeLayout>
-    
-    <RelativeLayout
-        android:id="@+id/filterLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/loopbaanLayout" >
+            <TextView
+                android:id="@+id/loopbaanText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Loopbaan: "
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#000" />
+
+            <Spinner
+                android:id="@+id/loopbaan"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-        <TextView
-            android:id="@+id/filterText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="Filter: "
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#000" />
+        </TableRow>
 
-        <EditText
-            android:hint="Vaknaam of ID"
-            android:id="@+id/filter"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/filterText"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:imeOptions="actionDone" />
-    </RelativeLayout>
-    
+        <TableRow>
+
+            <TextView
+                android:id="@+id/filterText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Filter: "
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#000" />
+
+            <EditText
+                android:id="@+id/filter"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Vaknaam of ID"
+                android:imeOptions="actionDone"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </TableRow>
+    </TableLayout>
+
     <RelativeLayout
         android:id="@+id/listLayout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/filterLayout" >
-    
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:cacheColorHint="#00000000"
-        android:clickable="false"
-        android:divider="#e0e0e0"
-        android:dividerHeight="2dp"
-        android:fadingEdge="none"
-        android:longClickable="false" >
-    </ListView>
-    
+        android:layout_below="@+id/table" >
+
+        <ListView
+            android:id="@+id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="#00000000"
+            android:clickable="false"
+            android:divider="#e0e0e0"
+            android:dividerHeight="2dp"
+            android:fadingEdge="none"
+            android:longClickable="false" >
+        </ListView>
     </RelativeLayout>
 
 </RelativeLayout>

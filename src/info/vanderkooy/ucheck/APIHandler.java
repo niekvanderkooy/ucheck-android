@@ -71,6 +71,19 @@ public class APIHandler {
 			return 0;
 		}
 	}
+	
+	public boolean verifyLogin(String password) {
+		Log.v("uCheck", password);
+		tracker.trackEvent("APIHandler", "getInfo", "VerifyKey", (long) 0);
+		GAServiceManager.getInstance().dispatch();
+		String username = prefs.getUsername();
+		int response = getKey(username, password);
+		
+		if(response == 1)
+			return true;
+		else
+			return false;
+	}
 
 	public String getProgress() {
 		tracker.trackEvent("APIHandler", "getInfo", "Progress", (long) 0);

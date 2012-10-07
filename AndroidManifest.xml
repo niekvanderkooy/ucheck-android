@@ -23,6 +23,7 @@
         </activity>
         <activity android:name=".Grades"></activity>
         <activity android:name=".Enroll" android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".ConfirmPass"></activity>
         <activity android:name=".Classes"></activity>
         <activity android:name=".Progress"></activity>
         <activity android:name=".Account"></activity>

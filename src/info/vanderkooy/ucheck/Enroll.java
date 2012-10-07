@@ -85,7 +85,7 @@ public class Enroll extends Activity {
 	public void onResume() {
 		super.onResume();
 		prefs.forceNewClasses();
-		tracker.trackView("/appInfo");
+		tracker.trackView("/enroll");
 	}
 
 	private void initStudiesSpinner() {

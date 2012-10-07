@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#f4f4f4"
+    android:orientation="vertical" >
+    
+    <TextView
+        android:id="@+id/confirmText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Voer ter bevestiging je uSis wachtwoord in"
+        android:textColor="#000" />
+    
+    <TableLayout
+        android:id="@+id/table"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/confirmText" >
+
+        <TableRow android:layout_marginTop="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/username"
+                android:textSize="20sp"
+                android:textColor="#000" />
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:singleLine="true" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:text="@string/password"
+                android:textSize="20sp"
+                android:textColor="#000" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="fill_parent"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:hint="uSis wachtwoord"
+                android:password="true"
+                android:singleLine="true" />
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/table"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:textSize="24dp" />
+
+</RelativeLayout>
