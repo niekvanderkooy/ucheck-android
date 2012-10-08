@@ -158,8 +158,14 @@ public class Enroll extends Activity {
 	}
 
 	private void processData() {
-		getLoopbanen();
-		makeList();
+		if(data != null) {
+			getLoopbanen();
+			makeList();
+		} else {
+			Toast toast = Toast.makeText(getApplicationContext(),
+					"Data kon niet worden opgehaald. Wellicht is uSis down, of heb je een slechte internetverbinding.", Toast.LENGTH_LONG);
+			toast.show();
+		}
 
 	}
 	
@@ -184,8 +190,8 @@ public class Enroll extends Activity {
 								@Override
 								public void run() {
 									if (dialog.isShowing()) {
-										subject(subjectInfo, subjectID);
 										subID = subjectID;
+										subject(subjectInfo, subjectID);
 										dialog.hide();
 										dialog.dismiss();
 									}
@@ -211,25 +217,31 @@ public class Enroll extends Activity {
 	};
 	
 	private void subject(JSONObject subjectInfo, String subjectID) {
-		int aantal = subjectInfo.length();
-		if(aantal > 1) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(Enroll.this);
-			Iterator itr = subjectInfo.keys();
-			categories = new CharSequence[aantal];
-			for(int i = 0; i < aantal; i++)
-				categories[i] = (CharSequence) itr.next();
-			
-			builder.setTitle("Kies een categorie").setItems(categories, categoryListener).show();
+		if(subjectInfo != null) {
+			int aantal = subjectInfo.length();
+			if(aantal > 1) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(Enroll.this);
+				Iterator itr = subjectInfo.keys();
+				categories = new CharSequence[aantal];
+				for(int i = 0; i < aantal; i++)
+					categories[i] = (CharSequence) itr.next();
+				
+				builder.setTitle("Kies een categorie").setItems(categories, categoryListener).show();
+			} else {
+				try {
+					enroll(subjectInfo.getJSONArray((String) subjectInfo.keys().next()));
+				} catch (JSONException e) {
+					Toast toast = Toast.makeText(getApplicationContext(),
+							"Er is iets mis gegaan. Probeer het later nog een keer.", Toast.LENGTH_LONG);
+					toast.show();
+					e.printStackTrace();
+				}
+			}	
 		} else {
-			try {
-				enroll(subjectInfo.getJSONArray((String) subjectInfo.keys().next()));
-			} catch (JSONException e) {
-				Toast toast = Toast.makeText(getApplicationContext(),
-						"Er is iets mis gegaan. Probeer het later nog een keer.", Toast.LENGTH_LONG);
-				toast.show();
-				e.printStackTrace();
-			}
-		}	
+			Toast toast = Toast.makeText(getApplicationContext(),
+					"Data kon niet worden opgehaald. Wellicht is uSis down, of heb je een slechte internetverbinding.", Toast.LENGTH_LONG);
+			toast.show();
+		}
 	}
 	
 	private DialogInterface.OnClickListener categoryListener = new DialogInterface.OnClickListener() {
