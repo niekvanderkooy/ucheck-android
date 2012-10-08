@@ -64,6 +64,8 @@ public class Classes extends Activity {
 		enrollButton.setOnClickListener(enrollListener);
 		spinner.setVisibility(8);
 		prefs.forceNewClasses();
+		
+		studies = new ArrayList<String>();
 	}
 
 	@Override
@@ -119,7 +121,6 @@ public class Classes extends Activity {
 		} else {
 			prefs.setLastClassesUpdate();
 			try {
-				studies = new ArrayList<String>();
 				stopIDs = new HashMap<String, String>();
 				enrollments = data.getJSONArray("inschrijvingen");
 				for (int i = 0; i < enrollments.length(); i++) {
