@@ -28,6 +28,10 @@ Changelog
 v2.0 (Current version):
 * Support for (un-)enrolling for subjects.
 
+Multiple adjustments and bugfixes, including:
+* Ability to interrupt downloads of data
+* Improved exception handling to prevent crashing
+
 v1.1.2:
 * Crash fix
 
