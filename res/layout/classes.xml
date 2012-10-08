@@ -23,7 +23,7 @@
 
         <Button
             android:id="@+id/refresh"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="52dp"
             android:layout_toLeftOf="@+id/add"
             android:layout_marginRight="2dp"
