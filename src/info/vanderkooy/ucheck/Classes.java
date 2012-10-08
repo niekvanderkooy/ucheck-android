@@ -121,6 +121,7 @@ public class Classes extends Activity {
 		} else {
 			prefs.setLastClassesUpdate();
 			try {
+				studies.clear();
 				stopIDs = new HashMap<String, String>();
 				enrollments = data.getJSONArray("inschrijvingen");
 				for (int i = 0; i < enrollments.length(); i++) {
