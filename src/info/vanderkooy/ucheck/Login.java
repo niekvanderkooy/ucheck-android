@@ -95,7 +95,7 @@ public class Login extends Activity {
 						runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
-								if (success) {
+								if (success && dialog.isShowing()) {
 									tracker.trackEvent("Login", "LoginResponse", "Success", (long) 0);
 									prefs.setStorePass(storePass.isChecked());
 									if(!usr.equals(finalUsernameString))

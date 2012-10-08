@@ -74,6 +74,7 @@ public class Grades extends Activity {
 	private void load() {
 		dialog = ProgressDialog.show(Grades.this, "", getString(R.string.getGrades),
 				true);
+		dialog.setCancelable(true);
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {

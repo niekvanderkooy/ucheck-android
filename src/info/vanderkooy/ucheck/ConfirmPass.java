@@ -59,6 +59,7 @@ public class ConfirmPass extends Activity {
 		public void onClick(View v) {
 			dialog = ProgressDialog.show(ConfirmPass.this, "",
 					"Wachtwoord wordt bevestigd...", true);
+			dialog.setCancelable(true);
 
 			Thread thread = new Thread(new Runnable() {
 				public void run() {
@@ -67,7 +68,7 @@ public class ConfirmPass extends Activity {
 						runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
-								if (confirmed) {
+								if (confirmed && dialog.isShowing()) {
 								    try {
 										dialog.hide();
 								        dialog.dismiss();
@@ -76,6 +77,8 @@ public class ConfirmPass extends Activity {
 								        // nothing
 								    }
 									finish();
+								} else if (confirmed) {
+									confirmed = false;
 								} else {
 									Toast toast = Toast.makeText(getApplicationContext(),"Wachtwoord was onjuist",Toast.LENGTH_LONG);
 									toast.show();

@@ -124,6 +124,7 @@ public class Enroll extends Activity {
 		loopbaanString = "Alles";
 		dialog = ProgressDialog.show(Enroll.this, "",
 				"Vakken worden opgehaald", true);
+		dialog.setCancelable(true);
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
@@ -132,8 +133,8 @@ public class Enroll extends Activity {
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							processData();
 							if (dialog.isShowing()) {
+								processData();
 								dialog.hide();
 								dialog.dismiss();
 							}
@@ -173,6 +174,7 @@ public class Enroll extends Activity {
 				final String subjectID = (String) ((TextView) arg1.findViewById(R.id.info)).getText();
 				dialog = ProgressDialog.show(Enroll.this, "",
 						"Vakinfo wordt opgehaald", true);
+				dialog.setCancelable(true);
 
 				Thread thread = new Thread(new Runnable() {
 					public void run() {
@@ -181,9 +183,9 @@ public class Enroll extends Activity {
 							runOnUiThread(new Runnable() {
 								@Override
 								public void run() {
-									subject(subjectInfo, subjectID);
-									subID = subjectID;
 									if (dialog.isShowing()) {
+										subject(subjectInfo, subjectID);
+										subID = subjectID;
 										dialog.hide();
 										dialog.dismiss();
 									}

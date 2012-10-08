@@ -52,6 +52,7 @@ public class Progress extends Activity {
 	
 	private void load() {
 		dialog = ProgressDialog.show(Progress.this, "", getString(R.string.getProgress), true);
+		dialog.setCancelable(true);
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
@@ -60,8 +61,8 @@ public class Progress extends Activity {
 					@Override
 					public void run() {
 						if(handler.isNetworkAvailable()) {
-							processData();
 							if (dialog.isShowing()) {
+								processData();
 								dialog.hide();
 								dialog.dismiss();
 							}

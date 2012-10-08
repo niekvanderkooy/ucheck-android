@@ -80,6 +80,7 @@ public class Classes extends Activity {
 
 	private void load() {
 		dialog = ProgressDialog.show(Classes.this, "", getString(R.string.getClasses), true);
+		dialog.setCancelable(true);
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
@@ -88,8 +89,8 @@ public class Classes extends Activity {
 					runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							processData();
 							if (dialog.isShowing()) {
+								processData();
 								dialog.hide();
 								dialog.dismiss();
 							}
@@ -388,4 +389,19 @@ public class Classes extends Activity {
 			load();
 		}
 	};
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	Log.v("uCheck", "bllop1");
+	    	if (dialog.isShowing()) {
+	    		Log.v("uCheck", "bllop2");
+				dialog.hide();
+				dialog.dismiss();
+			}
+	    }
+
+	    return super.onKeyDown(keyCode, event);
+	}
+	
 }
