@@ -171,6 +171,7 @@ public class APIHandler {
 	}
 	
 	public String unenroll(String stopid) {
+		tracker.trackEvent("APIHandler", "unEnroll", "", (long) 0);
 		String username = prefs.getUsername();
 		String key = prefs.getKey();
 		String response = getWebPage("https://ucheck.nl/api/uitschrijven?user=" + URLEncoder.encode(username) + "&pass=" + URLEncoder.encode(key) + "&q=" + stopid);
@@ -211,6 +212,7 @@ public class APIHandler {
 	}
 	
 	public String enroll(String q, String nummer) {
+		tracker.trackEvent("APIHandler", "Enroll", "", (long) 0);
 		String username = prefs.getUsername();
 		String key = prefs.getKey();
 		String response = getWebPage("https://ucheck.nl/api/inschrijven?year=12&user="+ URLEncoder.encode(username) +"&pass=" + URLEncoder.encode(key) + "&q=" + URLEncoder.encode(q) + "&nummer=" + URLEncoder.encode(nummer));
