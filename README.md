@@ -25,7 +25,10 @@ All contributors are listed below:
 
 Changelog
 --------------
-v2.0 (Current version):
+v2.0.1:
+* Crash fixes.
+
+v2.0:
 * Support for (un-)enrolling for subjects.
 
 Multiple adjustments and bugfixes, including:
