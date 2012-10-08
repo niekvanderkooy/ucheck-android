@@ -10,34 +10,14 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
-        <TableRow android:layout_marginTop="10dp" >
+        <TableRow android:layout_marginTop="5dp" >
 
-            <TextView
-                android:id="@+id/studieText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Studie: "
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#000" />
-
             <Spinner
                 android:id="@+id/studies"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:id="@+id/loopbaanText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Loopbaan: "
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="#000" />
-
+            
             <Spinner
                 android:id="@+id/loopbaan"
                 android:layout_width="fill_parent"
