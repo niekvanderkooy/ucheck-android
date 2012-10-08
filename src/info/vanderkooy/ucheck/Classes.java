@@ -18,6 +18,8 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -77,8 +79,7 @@ public class Classes extends Activity {
 	}
 
 	private void load() {
-		dialog = ProgressDialog.show(Classes.this, "",
-				getString(R.string.getClasses), true);
+		dialog = ProgressDialog.show(Classes.this, "", getString(R.string.getClasses), true);
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
@@ -123,8 +124,9 @@ public class Classes extends Activity {
 				stopIDs = new HashMap<String, String>();
 				enrollments = data.getJSONArray("inschrijvingen");
 				for (int i = 0; i < enrollments.length(); i++) {
-					studies.add(enrollments.getJSONObject(i)
-							.getString("studie"));
+					String studieString = enrollments.getJSONObject(i).getString("studie");
+					if(!studies.contains(studieString) && !studieString.equals(""))
+						studies.add(studieString);
 					stopIDs.put(enrollments.getJSONObject(i).getString("vak"),
 							enrollments.getJSONObject(i).getString("stopid"));
 				}
@@ -282,8 +284,7 @@ public class Classes extends Activity {
 				Thread thread = new Thread(new Runnable() {
 					public void run() {
 						if (handler.isNetworkAvailable()) {
-							response = handler.unenroll(stopIDs
-									.get(unenrollSubject));
+							response = handler.unenroll(stopIDs.get(unenrollSubject));
 							runOnUiThread(new Runnable() {
 								@Override
 								public void run() {
