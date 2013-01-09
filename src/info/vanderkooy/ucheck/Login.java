@@ -111,7 +111,7 @@ public class Login extends Activity {
 								} else {
 									tracker.trackEvent("Login", "LoginResponse", "Fail", (long) 0);
 									Toast toast;
-									if (finalReturned == 0) {
+									if (finalReturned == -1) {
 										toast = Toast.makeText(
 												getApplicationContext(),
 												getString(R.string.userError), Toast.LENGTH_LONG);

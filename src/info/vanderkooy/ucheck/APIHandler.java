@@ -22,6 +22,7 @@ import com.google.analytics.tracking.android.Tracker;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.widget.Toast;
 
 public class APIHandler {
@@ -59,15 +60,18 @@ public class APIHandler {
 			return 0;
 		
 		String key = getWebPage("https://ucheck.nl/api/login.php?user=" + URLEncoder.encode(username) + "&pass=" + URLEncoder.encode(password));
+		if(key.contains("err: Your User ID and/or Password are invalid.")) {
+			return -1;
+		}
 		if(key.length() >= 3 && !key.substring(0, 3).equalsIgnoreCase("err")) {
 			//Probably some null character at the end of 'key' which is messing up requests etc.
 			prefs.edit().putString("key", key.substring(0, key.length() - 1));
 			prefs.setUsername(username);
 			return (prefs.edit().commit()) ? 1 : 0;
 		} else if (key.equals("")) {
-			return -1;
-		} else {
 			return -2;
+		} else {
+			return -3;
 		}
 	}
 	
