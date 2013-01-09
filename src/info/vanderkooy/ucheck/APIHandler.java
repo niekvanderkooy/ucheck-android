@@ -67,7 +67,7 @@ public class APIHandler {
 		} else if (key.equals("")) {
 			return -1;
 		} else {
-			return 0;
+			return -2;
 		}
 	}
 	
