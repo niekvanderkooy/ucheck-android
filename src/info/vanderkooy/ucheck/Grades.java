@@ -47,15 +47,16 @@ public class Grades extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.grades);
-		
-		tracker = GoogleAnalytics.getInstance(getApplicationContext()).getDefaultTracker();
+
+		tracker = GoogleAnalytics.getInstance(getApplicationContext())
+				.getDefaultTracker();
 
 		spinner = (Spinner) findViewById(R.id.spinner);
 		refreshButton = (Button) findViewById(R.id.refresh);
 		handler = new APIHandler(getApplicationContext());
 		prefs = new Preferences(getApplicationContext());
 		studies = new ArrayList<String>();
-		
+
 		refreshButton.setOnClickListener(refreshListener);
 		spinner.setVisibility(8);
 		prefs.forceNewGrades();
@@ -72,13 +73,13 @@ public class Grades extends Activity {
 	}
 
 	private void load() {
-		dialog = ProgressDialog.show(Grades.this, "", getString(R.string.getGrades),
-				true);
+		dialog = ProgressDialog.show(Grades.this, "",
+				getString(R.string.getGrades), true);
 		dialog.setCancelable(true);
 
 		Thread thread = new Thread(new Runnable() {
 			public void run() {
-				if(handler.isNetworkAvailable()) {
+				if (handler.isNetworkAvailable()) {
 					data = handler.getGrades();
 					runOnUiThread(new Runnable() {
 						@Override
@@ -114,11 +115,8 @@ public class Grades extends Activity {
 
 	private int processData() {
 		if (data == null) {
-			Toast toast = Toast
-					.makeText(
-							getApplicationContext(),
-							getString(R.string.loadError),
-							Toast.LENGTH_LONG);
+			Toast toast = Toast.makeText(getApplicationContext(),
+					getString(R.string.loadError), Toast.LENGTH_LONG);
 			toast.show();
 			return 0;
 		} else {
@@ -135,12 +133,10 @@ public class Grades extends Activity {
 			try {
 				subjects = data.getJSONArray("vakken");
 			} catch (JSONException e) {
-				tracker.trackEvent("Exception", "Grades", "processData subjects =", (long) 0);
-				Toast toast = Toast
-						.makeText(
-								getApplicationContext(),
-								getString(R.string.loadError),
-								Toast.LENGTH_LONG);
+				tracker.trackEvent("Exception", "Grades",
+						"processData subjects =", (long) 0);
+				Toast toast = Toast.makeText(getApplicationContext(),
+						getString(R.string.loadError), Toast.LENGTH_LONG);
 				toast.show();
 				e.printStackTrace();
 			}
@@ -151,7 +147,8 @@ public class Grades extends Activity {
 				try {
 					vak = (String) subjects.getJSONObject(i).get("studie");
 				} catch (JSONException e) {
-					tracker.trackEvent("Exception", "Grades", "processData vak =", (long) 0);
+					tracker.trackEvent("Exception", "Grades",
+							"processData vak =", (long) 0);
 					e.printStackTrace();
 				}
 				if (!studies.contains(vak) && !vak.equals("")) {
@@ -162,6 +159,10 @@ public class Grades extends Activity {
 			if (numberOfStudies > 1) {
 				spinner.setVisibility(0);
 				updateSpinner();
+			} else if (numberOfStudies == 0) {
+				Toast toast = Toast.makeText(getApplicationContext(),
+						getString(R.string.noGrades), Toast.LENGTH_LONG);
+				toast.show();
 			} else {
 				spinner.setVisibility(8);
 				makeList(getString(R.string.allGrades));
@@ -220,10 +221,12 @@ public class Grades extends Activity {
 					map.put("gehaald", "false");
 				studie = (String) subjects.getJSONObject(i).get("studie");
 			} catch (JSONException e) {
-				tracker.trackEvent("Exception", "Grades", "makeList JSONException", (long) 0);
+				tracker.trackEvent("Exception", "Grades",
+						"makeList JSONException", (long) 0);
 				e.printStackTrace();
 			}
-			if (subject.equals(getString(R.string.allGrades)) || subject.equals(studie)) {
+			if (subject.equals(getString(R.string.allGrades))
+					|| subject.equals(studie)) {
 				mylist.add(map);
 			}
 		}
@@ -252,7 +255,7 @@ public class Grades extends Activity {
 			// Do nothing.
 		}
 	}
-	
+
 	private OnClickListener refreshListener = new OnClickListener() {
 		public void onClick(View v) {
 			tracker.trackEvent("Grades", "load", "manual", (long) 0);

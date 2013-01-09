@@ -25,6 +25,8 @@
 	<string name="getProgress">Voortgang wordt opgehaald</string>
 	<string name="loadError">Er is iets mis gegaan bij het ophalen van data. Probeer het later nog een keer.</string>
 	<string name="userError">Ongeldige gebruikersnaam en/of wachtwoord</string>
+	<string name="noGrades">Je hebt of nog geen bevestigde cijfers, of uSis is momenteel onbereikbaar.</string>
+	<string name="noSubjects">Je bent niet ingeschreven voor vakken, of uSis is momenteel onbereikbaar.</string>
 	<string name="verificationError">Er is iets mis gegaan bij het ophalen van data. Probeer het later nog een keer.</string>
 	<string name="noNetwork">Er kon geen actieve internetverbinding worden gevonden. Probeer het later nog een keer.</string>
 	<string name="gotoAbout">Over deze app</string>

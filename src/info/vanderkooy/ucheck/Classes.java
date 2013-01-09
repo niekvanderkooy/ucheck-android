@@ -139,6 +139,10 @@ public class Classes extends Activity {
 								studieLijst.get(studieArray[i]), (long) 0);
 					}
 					updateSpinner();
+				} else if (studieArray.length == 0) {
+					Toast toast = Toast.makeText(getApplicationContext(),
+							getString(R.string.noSubjects), Toast.LENGTH_LONG);
+					toast.show();
 				} else {
 					spinner.setVisibility(8);
 					if (studieArray.length > 0)
