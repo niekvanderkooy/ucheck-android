@@ -66,6 +66,7 @@ public class Login extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		tracker = GoogleAnalytics.getInstance(getApplicationContext()).getDefaultTracker();
 		tracker.trackView("/login");
 	}
 
