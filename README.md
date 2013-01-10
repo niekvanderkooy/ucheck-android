@@ -25,6 +25,10 @@ All contributors are listed below:
 
 Changelog
 --------------
+v2.0.2 (Current Version):
+* Updated app icon.
+* Bug and crash fixes.
+
 v2.0.1:
 * Crash fixes.
 
