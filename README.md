@@ -25,7 +25,10 @@ All contributors are listed below:
 
 Changelog
 --------------
-v2.0.2 (Current Version):
+v2.0.3 (Current Version):
+* Further crash prevention in the situation where uSis is down.
+
+v2.0.2:
 * Updated app icon.
 * Bug and crash fixes.
 
