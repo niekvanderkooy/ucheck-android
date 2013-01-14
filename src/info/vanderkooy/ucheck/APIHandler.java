@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URLEncoder;
+import java.util.regex.Pattern;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -63,7 +64,7 @@ public class APIHandler {
 		if(key.contains("err: Your User ID and/or Password are invalid.")) {
 			return -1;
 		}
-		if(key.length() >= 3 && !key.substring(0, 3).equalsIgnoreCase("err")) {
+		if(key.length() >= 3 && !key.substring(0, 3).equalsIgnoreCase("err") && Pattern.compile("[a-zA-Z0-9-_]*").matcher(key.substring(0, key.length() - 1)).matches()) {
 			//Probably some null character at the end of 'key' which is messing up requests etc.
 			prefs.edit().putString("key", key.substring(0, key.length() - 1));
 			prefs.setUsername(username);
